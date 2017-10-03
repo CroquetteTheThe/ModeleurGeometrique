@@ -10,6 +10,7 @@ public:
 	static Vector3d const red;
 	static Vector3d const yellow;
 	static Vector3d const grey;
+	static Vector3d const white;
 };
 
 

@@ -2,6 +2,7 @@
 
 #include <GLFW/glfw3.h>
 #include "Drawable.h"
+#include "Widget.h"
 #include <string>
 #include <vector>
 
@@ -20,11 +21,14 @@ public:
 	 */
 	void add(Drawable *drawable);
 
+	void addWidget(Widget *widget);
+
 private:
 	GLFWwindow *window;
 	static std::vector<Drawable *> drawables;
+	static std::vector<Widget *> widgets;
 	static bool leftButtonPressed;
-	static int angleX, angleY, x, y;
+	static int angleX, angleY, x, y, width, height;
 	static double scaleFactor;
 
 	static void render();

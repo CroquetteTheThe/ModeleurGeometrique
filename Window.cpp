@@ -7,10 +7,15 @@ int Window::x = 0;
 int Window::y = 0;
 int Window::angleX = 0;
 int Window::angleY = 0;
+int Window::width = 0;
+int Window::height = 0;
 double Window::scaleFactor = 0.40;
 std::vector<Drawable *> Window::drawables;
+std::vector<Widget *> Window::widgets;
 
 Window::Window(int *pargc, char **argv, std::string title, int width, int height) {
+	Window::width = width;
+	Window::height = height;
 	glutInit(pargc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowPosition(200, 200);
@@ -74,6 +79,15 @@ void Window::render() {
 	glVertex3f(0, 0, 1.0);
 	glEnd();
 
+
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0.f, Window::width, Window::height, 0.f, 0.f, 1.f);
+	for (auto widget : Window::widgets) {
+		widget->draw();
+	}
+	glPopMatrix();
+
 	glFlush();
 	glutSwapBuffers();
 }
@@ -133,4 +147,8 @@ void Window::mouseMotionHandler(int x, int y) {
 
 void Window::show() {
 	glutMainLoop();
+}
+
+void Window::addWidget(Widget *widget) {
+	Window::widgets.emplace_back(widget);
 }
