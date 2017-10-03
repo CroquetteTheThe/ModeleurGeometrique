@@ -17,8 +17,6 @@ public:
 
 	void draw() override;
 
-private:
-public:
 	void setSelected(bool selected);
 
 private:

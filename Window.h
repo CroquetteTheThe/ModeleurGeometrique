@@ -33,6 +33,7 @@ private:
 	static bool leftButtonPressed;
 	static int angleX, angleY, x, y, width, height;
 	static double scaleFactor;
+	static GLenum faceMode;
 
 	static void render();
 

@@ -15,6 +15,7 @@ double Window::scaleFactor = 0.40;
 std::vector<Drawable *> Window::drawables;
 std::vector<Widget *> Window::widgets;
 std::vector<EventListener *> Window::listeners;
+GLenum Window::faceMode = GL_FILL;
 
 Window::Window(int *pargc, char **argv, std::string title, int width, int height) {
 	Window::width = width;
@@ -57,6 +58,7 @@ void Window::render() {
 	glRotatef(Window::angleX, 0.0, 1.0, 0.0);
 
 
+	glPolygonMode(GL_FRONT_AND_BACK, Window::faceMode);
 	for (auto d: Window::drawables) {
 		glPushMatrix();
 		d->draw();
@@ -84,6 +86,7 @@ void Window::render() {
 
 
 	glPushMatrix();
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glLoadIdentity();
 	glOrtho(0.f, Window::width, Window::height, 0.f, 0.f, 1.f);
 	for (auto widget : Window::widgets) {
@@ -106,15 +109,15 @@ void Window::keyboardHandler(unsigned char key, int x, int y) {
 	else {
 		switch (key) {
 			case 'l':
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				Window::faceMode = GL_LINE;
 				glutPostRedisplay();
 				break;
 			case 'p' :
-				glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+				Window::faceMode = GL_POINT;
 				glutPostRedisplay();
 				break;
 			case 'f' :
-				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				Window::faceMode = GL_FILL;
 				glutPostRedisplay();
 				break;
 			case 'q' :
