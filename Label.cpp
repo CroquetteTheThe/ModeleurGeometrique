@@ -24,3 +24,23 @@ void Label::draw() {
 Label::Label(double x, double y, const std::string &text, double width, double height, const Vector3d &color,
              const Vector3d &bgColor) : Widget(x, y), text(text), width(width), height(height), color(color),
                                         bgColor(bgColor) {}
+
+const std::string &Label::getText() const {
+	return text;
+}
+
+bool Label::contains(int x, int y) {
+	return x >= this->x && x <= this->x + width && y >= this->y && y <= this->y + height;
+}
+
+void Label::setText(const std::string &text) {
+	Label::text = text;
+}
+
+void Label::setColor(const Vector3d &color) {
+	Label::color = color;
+}
+
+void Label::setBgColor(const Vector3d &bgColor) {
+	Label::bgColor = bgColor;
+}

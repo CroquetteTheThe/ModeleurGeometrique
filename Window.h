@@ -23,10 +23,13 @@ public:
 
 	void addWidget(Widget *widget);
 
+	void addListener(EventListener *listener);
+
 private:
 	GLFWwindow *window;
 	static std::vector<Drawable *> drawables;
 	static std::vector<Widget *> widgets;
+	static std::vector<EventListener *> listeners;
 	static bool leftButtonPressed;
 	static int angleX, angleY, x, y, width, height;
 	static double scaleFactor;

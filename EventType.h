@@ -1,0 +1,8 @@
+#pragma once
+
+enum EventType {
+	KEYBOARD_EVENT,
+	MOUSE_CLICK_EVENT,
+	MOUSE_WHEEL_EVENT,
+	MOUSE_MOTION_EVENT
+};

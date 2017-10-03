@@ -5,3 +5,4 @@ Vector3d const Color::red = Vector3d(1, 0, 0);
 Vector3d const Color::yellow = Vector3d(1, 1, 0);
 Vector3d const Color::grey = Vector3d(0.2, 0.2, 0.2);
 Vector3d const Color::white = Vector3d(1, 1, 1);
+Vector3d const Color::black = Vector3d(0, 0, 0);

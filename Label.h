@@ -13,6 +13,16 @@ public:
 
 	void draw() override;
 
+	bool contains(int x, int y) override;
+
+	const std::string &getText() const;
+
+	void setText(const std::string &text);
+
+	void setColor(const Vector3d &color);
+
+	void setBgColor(const Vector3d &bgColor);
+
 private:
 	std::string text;
 	double width, height;

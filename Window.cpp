@@ -1,5 +1,7 @@
 #include "Window.h"
 #include "Color.h"
+#include "MouseClickEvent.h"
+#include "KeyboardEvent.h"
 #include <GL/glut.h>
 
 bool Window::leftButtonPressed = false;
@@ -12,6 +14,7 @@ int Window::height = 0;
 double Window::scaleFactor = 0.40;
 std::vector<Drawable *> Window::drawables;
 std::vector<Widget *> Window::widgets;
+std::vector<EventListener *> Window::listeners;
 
 Window::Window(int *pargc, char **argv, std::string title, int width, int height) {
 	Window::width = width;
@@ -93,23 +96,32 @@ void Window::render() {
 }
 
 void Window::keyboardHandler(unsigned char key, int x, int y) {
-	switch (key) {
-		case 'l':
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-			glutPostRedisplay();
-			break;
-		case 'p' :
-			glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-			glutPostRedisplay();
-			break;
-		case 'f' :
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			glutPostRedisplay();
-			break;
-		case 'q' :
-			exit(EXIT_SUCCESS);
-		default:
-			break;
+	auto e = KeyboardEvent(key);
+	bool redisplay = false;
+	for (auto listener : listeners) {
+		redisplay |= listener->notify(&e);
+	}
+	if (redisplay)
+		glutPostRedisplay();
+	else {
+		switch (key) {
+			case 'l':
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				glutPostRedisplay();
+				break;
+			case 'p' :
+				glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+				glutPostRedisplay();
+				break;
+			case 'f' :
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				glutPostRedisplay();
+				break;
+			case 'q' :
+				exit(EXIT_SUCCESS);
+			default:
+				break;
+		}
 	}
 }
 
@@ -129,8 +141,26 @@ void Window::mouseHandler(int button, int state, int x, int y) {
 		Window::leftButtonPressed = false;
 	} else if (button == 3 && state == GLUT_UP) {
 		Window::scaleFactor += 0.02;
+		glutPostRedisplay();
 	} else if (button == 4 && state == GLUT_UP) {
 		Window::scaleFactor -= 0.02;
+		glutPostRedisplay();
+	}
+
+	if (state == GLUT_DOWN) {
+		MouseButton b;
+		if (button == GLUT_LEFT_BUTTON)
+			b = LEFT;
+		else if (button == GLUT_RIGHT_BUTTON)
+			b = RIGHT;
+		else
+			return;
+		auto e = MouseClickEvent(b, x, y);
+		bool redisplay = false;
+		for (auto listener : listeners) {
+			redisplay |= listener->notify(&e);
+		}
+		if (redisplay) glutPostRedisplay();
 	}
 }
 
@@ -151,4 +181,8 @@ void Window::show() {
 
 void Window::addWidget(Widget *widget) {
 	Window::widgets.emplace_back(widget);
+}
+
+void Window::addListener(EventListener *listener) {
+	Window::listeners.emplace_back(listener);
 }
