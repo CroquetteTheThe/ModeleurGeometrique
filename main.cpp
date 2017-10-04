@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
 
 	auto label = new Label(10, 10, "../resources/teapot.off", 65, 22);
 	window->addWidget(label);
-	auto textInput = new TextInput(10, 42, 150, 22);
+	auto textInput = new TextInput(10, 42, 10, 22);
 	window->addWidget(textInput);
 	window->addListener(textInput);
 

@@ -7,7 +7,7 @@
 
 class TextInput : public Widget {
 public:
-	TextInput(double x, double y, double width, double height);
+	TextInput(double x, double y, int size, double height);
 
 	bool notify(Event *e) override;
 
@@ -20,8 +20,11 @@ public:
 	void setSelected(bool selected);
 
 private:
-	Label label;
+	int size;
+	double width, height;
 	bool enabled, selected;
+	std::string text;
+	Vector3d bgColor, color;
 };
 
 

@@ -1,11 +1,16 @@
 #include <iostream>
+#include "glUtils.h"
 #include "TextInput.h"
 #include "MouseClickEvent.h"
 #include "KeyboardEvent.h"
 
-TextInput::TextInput(double x, double y, double width, double height) : Widget(x, y),
-                                                                        label(x, y, "", width, height, Color::black,
-                                                                              Color::white) {
+TextInput::TextInput(double x, double y, int size, double height) : Widget(x, y),
+                                                                        size(size),
+                                                                        width(12*size),
+                                                                        height(height),
+																		text(""),
+																		bgColor(Color::white),
+																		color(Color::white){
 
 }
 
@@ -26,11 +31,11 @@ bool TextInput::notify(Event *e) {
 			auto keyboardEvent = dynamic_cast<KeyboardEvent *>(e);
 			if (selected) {
 				if (keyboardEvent->getKey() == '\b') {
-					label.setText(label.getText().substr(0, label.getText().size() - 1));
+					text = text.substr(0, text.size() - 1);
 				} else if (keyboardEvent->getKey() == 13) { // enter
 					setSelected(false);
 				} else {
-					label.setText(label.getText() + keyboardEvent->getKey());
+					text = text + keyboardEvent->getKey();
 				}
 				return true;
 			}
@@ -42,24 +47,31 @@ bool TextInput::notify(Event *e) {
 }
 
 const std::string &TextInput::getText() const {
-	return label.getText();
+	return text;
 }
 
 bool TextInput::contains(int x, int y) {
-	return label.contains(x, y);
+	return x >= this->x && x <= this->x + width && y >= this->y && y <= this->y + height;
 }
 
 void TextInput::draw() {
-	label.draw();
+
+	if (text.size() <= size)
+		glutils::text(text, x, y+16+(height-18)/2, color);
+	else
+		glutils::text(text.substr(text.size()-size, text.size()-1), x, y+16+(height-18)/2, color);
+
+	glutils::rectangle(x+1, y+1, width-2, height-2, bgColor);
+	glutils::rectangle(x, y, width, height, Color::black);
 }
 
 void TextInput::setSelected(bool selected) {
 	TextInput::selected = selected;
 	if (selected) {
-		label.setBgColor({138 / 255.0, 219 / 255.0, 232 / 255.0});
-		label.setColor(Color::black);
+		bgColor = {138 / 255.0, 219 / 255.0, 232 / 255.0};
+		color = Color::black;
 	} else {
-		label.setBgColor(Color::white);
-		label.setColor(Color::black);
+		bgColor = Color::white;
+		color = Color::black;
 	}
 }
