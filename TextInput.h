@@ -21,7 +21,6 @@ public:
 
 private:
 	int size;
-	double width, height;
 	bool enabled, selected;
 	std::string text;
 	Vector3d bgColor, color;

@@ -18,8 +18,9 @@ public:
 	void draw() override;
 
 private:
-	Label label;
+	std::string text;
 	std::function<void(void)> f;
+	bool hover;
 };
 
 

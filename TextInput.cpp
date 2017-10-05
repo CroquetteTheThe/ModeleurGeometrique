@@ -4,13 +4,11 @@
 #include "MouseClickEvent.h"
 #include "KeyboardEvent.h"
 
-TextInput::TextInput(double x, double y, int size, double height) : Widget(x, y),
-                                                                        size(size),
-                                                                        width(12*size),
-                                                                        height(height),
-																		text(""),
-																		bgColor(Color::white),
-																		color(Color::white){
+TextInput::TextInput(double x, double y, int size, double height) : Widget(x, y, 12 * size, height),
+                                                                    size(size),
+                                                                    text(""),
+                                                                    bgColor(Color::white),
+                                                                    color(Color::white){
 
 }
 

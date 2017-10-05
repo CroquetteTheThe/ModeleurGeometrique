@@ -25,7 +25,6 @@ public:
 
 private:
 	std::string text;
-	double width, height;
 	Vector3d color, bgColor;
 };
 

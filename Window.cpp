@@ -2,7 +2,9 @@
 #include "Color.h"
 #include "MouseClickEvent.h"
 #include "KeyboardEvent.h"
+#include "MouseMotionEvent.h"
 #include <GL/glut.h>
+#include <iostream>
 
 bool Window::leftButtonPressed = false;
 int Window::x = 0;
@@ -38,6 +40,7 @@ Window::Window(int *pargc, char **argv, std::string title, int width, int height
 	glutKeyboardFunc(keyboardHandler);
 	glutReshapeFunc(reshape);
 	glutMouseFunc(mouseHandler);
+	glutPassiveMotionFunc(passiveMouseMotionHandler);
 	glutMotionFunc(mouseMotionHandler);
 
 }
@@ -158,6 +161,7 @@ void Window::mouseHandler(int button, int state, int x, int y) {
 			b = RIGHT;
 		else
 			return;
+
 		auto e = MouseClickEvent(b, x, y);
 		bool redisplay = false;
 		for (auto listener : listeners) {
@@ -176,6 +180,17 @@ void Window::mouseMotionHandler(int x, int y) {
 
 	Window::x = x;
 	Window::y = y;
+
+}
+
+void Window::passiveMouseMotionHandler(int x, int y) {
+
+	auto e = MouseMotionEvent(x, y);
+	bool redisplay = false;
+	for (auto listener : listeners) {
+		redisplay |= listener->notify(&e);
+	}
+	if (redisplay) glutPostRedisplay();
 }
 
 void Window::show() {

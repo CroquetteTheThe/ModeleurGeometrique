@@ -45,4 +45,5 @@ private:
 
 	static void mouseMotionHandler(int x, int y);
 
+	static void passiveMouseMotionHandler(int x, int y);
 };
