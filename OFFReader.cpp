@@ -6,6 +6,9 @@
 
 Shape *OFFReader::fromFile(std::string path) {
 	std::ifstream file(path);
+	if (!file.is_open()) {
+		throw std::exception();
+	}
 	std::string line;
 
 	std::getline(file, line);

@@ -9,7 +9,7 @@ class Label : public Widget {
 public:
 	Label(double x, double y, const std::string &text, double width, double height,
 	      const Vector3d &color = Color::white,
-	      const Vector3d &bgColor = Color::grey);
+	      const Vector3d &bgColor = {46 / 255.0, 46 / 255.0, 46 / 255.0});
 
 	void draw() override;
 
@@ -25,7 +25,6 @@ public:
 
 private:
 	std::string text;
-	double width, height;
 	Vector3d color, bgColor;
 };
 

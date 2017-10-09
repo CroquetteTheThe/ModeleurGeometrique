@@ -3,7 +3,7 @@ project(ModelisateurGeometrique)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp Drawable.h Window.cpp Window.h Color.cpp Color.h Vector3d.cpp Vector3d.h Shape.cpp Shape.h ShapeReader.h OFFReader.cpp OFFReader.h Widget.h Label.cpp Label.h TextInput.cpp TextInput.h EventType.h Event.h MouseClickEvent.cpp MouseClickEvent.h MouseButton.h KeyboardEvent.cpp KeyboardEvent.h EventListener.h Button.cpp Button.h)
+set(SOURCE_FILES main.cpp Drawable.h Window.cpp Window.h Color.cpp Color.h Vector3d.cpp Vector3d.h Shape.cpp Shape.h ShapeReader.h OFFReader.cpp OFFReader.h Widget.h Label.cpp Label.h TextInput.cpp TextInput.h EventType.h Event.h MouseClickEvent.cpp MouseClickEvent.h MouseButton.h KeyboardEvent.cpp KeyboardEvent.h EventListener.h Button.cpp Button.h glUtils.cpp glUtils.h MouseMotionEvent.cpp MouseMotionEvent.h Pane.cpp Pane.h)
 add_executable(ModelisateurGeometrique ${SOURCE_FILES})
 
 find_package(OpenGL REQUIRED)

@@ -5,15 +5,13 @@
 
 class Widget : public Drawable, public EventListener {
 public:
-	Widget(double x, double y) : x(x), y(y) {}
+	Widget(double x, double y, double width, double height) : x(x), y(y), width(width), height(height) {}
 
 	bool notify(Event *e) override { return false; }
 
 	virtual bool contains(int x, int y) = 0;
 
-public:
 	~Widget() override = default;
 
-protected:
-	double x, y;
+	double x, y, width, height;
 };

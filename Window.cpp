@@ -2,7 +2,9 @@
 #include "Color.h"
 #include "MouseClickEvent.h"
 #include "KeyboardEvent.h"
+#include "MouseMotionEvent.h"
 #include <GL/glut.h>
+#include <iostream>
 
 bool Window::leftButtonPressed = false;
 int Window::x = 0;
@@ -38,6 +40,7 @@ Window::Window(int *pargc, char **argv, std::string title, int width, int height
 	glutKeyboardFunc(keyboardHandler);
 	glutReshapeFunc(reshape);
 	glutMouseFunc(mouseHandler);
+	glutPassiveMotionFunc(passiveMouseMotionHandler);
 	glutMotionFunc(mouseMotionHandler);
 
 }
@@ -129,41 +132,42 @@ void Window::keyboardHandler(unsigned char key, int x, int y) {
 }
 
 void Window::reshape(int x, int y) {
-	if (x < y)
-		glViewport(0, (y - x) / 2, x, x);
-	else
-		glViewport((x - y) / 2, 0, y, y);
+	glutReshapeWindow(width, height);
 }
 
 void Window::mouseHandler(int button, int state, int x, int y) {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+
+	MouseButton b;
+	if (button == GLUT_LEFT_BUTTON)
+		b = LEFT;
+	else if (button == GLUT_RIGHT_BUTTON)
+		b = RIGHT;
+	else if (button == 3)
+		b = WHEEL_UP;
+	else if (button == 4)
+		b = WHEEL_DOWN;
+	auto e = MouseClickEvent(b, x, y, state == GLUT_DOWN);
+	bool redisplay = false;
+	for (auto listener : listeners) {
+		redisplay |= listener->notify(&e);
+	}
+	if (redisplay) {
+		glutPostRedisplay();
+		return;
+	}
+
+	if (b == LEFT && state == GLUT_DOWN) {
 		Window::leftButtonPressed = true;
 		Window::x = x;
 		Window::y = y;
-	} else if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+	} else if (b == LEFT && state == GLUT_UP) {
 		Window::leftButtonPressed = false;
-	} else if (button == 3 && state == GLUT_UP) {
+	} else if (b == WHEEL_UP && state == GLUT_UP) {
 		Window::scaleFactor += 0.02;
 		glutPostRedisplay();
-	} else if (button == 4 && state == GLUT_UP) {
+	} else if (b == WHEEL_DOWN && state == GLUT_UP) {
 		Window::scaleFactor -= 0.02;
 		glutPostRedisplay();
-	}
-
-	if (state == GLUT_DOWN) {
-		MouseButton b;
-		if (button == GLUT_LEFT_BUTTON)
-			b = LEFT;
-		else if (button == GLUT_RIGHT_BUTTON)
-			b = RIGHT;
-		else
-			return;
-		auto e = MouseClickEvent(b, x, y);
-		bool redisplay = false;
-		for (auto listener : listeners) {
-			redisplay |= listener->notify(&e);
-		}
-		if (redisplay) glutPostRedisplay();
 	}
 }
 
@@ -176,6 +180,23 @@ void Window::mouseMotionHandler(int x, int y) {
 
 	Window::x = x;
 	Window::y = y;
+	auto e = MouseMotionEvent(x, y);
+	bool redisplay = false;
+	for (auto listener : listeners) {
+		redisplay |= listener->notify(&e);
+	}
+	if (redisplay) glutPostRedisplay();
+
+}
+
+void Window::passiveMouseMotionHandler(int x, int y) {
+
+	auto e = MouseMotionEvent(x, y);
+	bool redisplay = false;
+	for (auto listener : listeners) {
+		redisplay |= listener->notify(&e);
+	}
+	if (redisplay) glutPostRedisplay();
 }
 
 void Window::show() {
