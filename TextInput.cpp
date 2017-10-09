@@ -16,12 +16,13 @@ bool TextInput::notify(Event *e) {
 	switch (e->getType()) {
 		case MOUSE_CLICK_EVENT: {
 			auto clickEvent = dynamic_cast<MouseClickEvent *>(e);
+			if (!clickEvent->isDown()) return false;
 			bool previousState = selected;
 			if (contains(clickEvent->getX(), clickEvent->getY())) {
-				setSelected(true);
+				selected = true;
 				return !previousState;
 			} else {
-				setSelected(false);
+				selected = false;
 				return previousState;
 			}
 		}
@@ -31,7 +32,7 @@ bool TextInput::notify(Event *e) {
 				if (keyboardEvent->getKey() == '\b') {
 					text = text.substr(0, text.size() - 1);
 				} else if (keyboardEvent->getKey() == 13) { // enter
-					setSelected(false);
+					selected = false;
 				} else {
 					text = text + keyboardEvent->getKey();
 				}
@@ -55,21 +56,15 @@ bool TextInput::contains(int x, int y) {
 void TextInput::draw() {
 
 	if (text.size() <= size)
-		glutils::text(text, x, y+16+(height-18)/2, color);
+		glutils::text(text, x, y + 16 + (height - 18) / 2, Color::black);
 	else
-		glutils::text(text.substr(text.size()-size, text.size()-1), x, y+16+(height-18)/2, color);
+		glutils::text(text.substr(text.size() - size, text.size() - 1), x, y + 16 + (height - 18) / 2, Color::black);
 
-	glutils::rectangle(x+1, y+1, width-2, height-2, bgColor);
-	glutils::rectangle(x, y, width, height, Color::black);
+	glutils::rectangle(x + 1, y + 1, width - 2, height - 2, Color::white);
+	if (selected)
+		glutils::rectangle(x, y, width, height, {138 / 255.0, 219 / 255.0, 232 / 255.0});
+	else
+		glutils::rectangle(x, y, width, height, Color::black);
 }
 
-void TextInput::setSelected(bool selected) {
-	TextInput::selected = selected;
-	if (selected) {
-		bgColor = {138 / 255.0, 219 / 255.0, 232 / 255.0};
-		color = Color::black;
-	} else {
-		bgColor = Color::white;
-		color = Color::black;
-	}
-}
+

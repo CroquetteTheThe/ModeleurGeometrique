@@ -10,7 +10,8 @@ Label::Label(double x, double y, const std::string &text, double width, double h
 
 void Label::draw() {
 
-	glutils::text(text, x, y + 16 + (height - 18) / 2, {159 / 255.0, 159 / 255.0, 159 / 255.0});
+	glutils::text(text, x, y + 16 + (height - 18) / 2, color);
+	glutils::rectangle(x, y, width, height, bgColor);
 }
 
 const std::string &Label::getText() const {

@@ -17,8 +17,6 @@ public:
 
 	void draw() override;
 
-	void setSelected(bool selected);
-
 private:
 	int size;
 	bool enabled, selected;

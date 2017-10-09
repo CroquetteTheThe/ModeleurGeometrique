@@ -6,7 +6,7 @@
 
 class MouseClickEvent : public Event {
 public:
-	MouseClickEvent(MouseButton button, int x, int y);
+	MouseClickEvent(MouseButton button, int x, int y, bool down = true);
 
 	EventType getType() override;
 
@@ -16,9 +16,12 @@ public:
 
 	int getY() const;
 
+	bool isDown() const;
+
 private:
 	MouseButton button;
 	int x, y;
+	bool down;
 };
 
 

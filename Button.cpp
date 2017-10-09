@@ -15,11 +15,11 @@ void Button::bind(const std::function<void(void)> &f) {
 }
 
 void Button::draw() {
-	glutils::text(text, x, y + 16 + (height - 18) / 2, Color::black);
+	glutils::text(text, x + 8, y + 16 + (height - 18) / 2, {200 / 255.0, 200 / 255.0, 200 / 255.0});
 	if (hover)
-		glutils::rectangle(x, y, width, height, Color::yellow);
+		glutils::roundedRectangle(x, y, width, height, 8, {76 / 255.0, 76 / 255.0, 76 / 255.0});
 	else
-		glutils::rectangle(x, y, width, height, Color::red);
+		glutils::roundedRectangle(x, y, width, height, 8, {64 / 255.0, 64 / 255.0, 64 / 255.0});
 }
 
 bool Button::contains(int x, int y) {
@@ -29,7 +29,7 @@ bool Button::contains(int x, int y) {
 bool Button::notify(Event *e) {
 	if (e->getType() == MOUSE_CLICK_EVENT) {
 		auto clickEvent = dynamic_cast<MouseClickEvent *>(e);
-		if (contains(clickEvent->getX(), clickEvent->getY())) {
+		if (contains(clickEvent->getX(), clickEvent->getY()) && clickEvent->isDown()) {
 			f();
 			return true;
 		}
