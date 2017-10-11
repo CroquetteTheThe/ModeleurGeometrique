@@ -11,7 +11,11 @@ Shape *OFFReader::fromFile(std::string path) {
 	}
 	std::string line;
 
+	//Reading first line (OFF)
 	std::getline(file, line);
+	while (line == "OFF" || line[0] == '#') {
+		std::getline(file, line);
+	}
 	std::stringstream stream(line);
 	int nbVertices, nbFaces;
 	stream >> nbVertices;
@@ -21,6 +25,10 @@ Shape *OFFReader::fromFile(std::string path) {
 	auto shape = new Shape(Color::red);
 	for (auto i = 0; i < nbVertices; ++i) {
 		std::getline(file, line);
+		if (line[0] == '#') {
+			i--;
+			continue;
+		}
 		stream = std::stringstream(line);
 		stream >> x;
 		stream >> y;
@@ -31,6 +39,10 @@ Shape *OFFReader::fromFile(std::string path) {
 	int nbIdx;
 	for (auto i = 0; i < nbFaces; ++i) {
 		std::getline(file, line);
+		if (line[0] == '#') {
+			i--;
+			continue;
+		}
 		stream = std::stringstream(line);
 		stream >> nbIdx;
 		std::vector<int> face;
