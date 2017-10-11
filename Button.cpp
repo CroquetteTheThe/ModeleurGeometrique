@@ -11,7 +11,7 @@ Button::Button(int x, int y, int width, int height, std::string text) : Widget(x
 }
 
 void Button::bind(const std::function<void(void)> &f) {
-	this->f = f;
+	this->onClick = f;
 }
 
 void Button::draw() {
@@ -30,7 +30,7 @@ bool Button::notify(Event *e) {
 	if (e->getType() == MOUSE_CLICK_EVENT) {
 		auto clickEvent = dynamic_cast<MouseClickEvent *>(e);
 		if (contains(clickEvent->getX(), clickEvent->getY()) && clickEvent->isDown()) {
-			f();
+			onClick();
 			return true;
 		}
 	} else if (e->getType() == MOUSE_MOTION_EVENT) {
