@@ -4,6 +4,7 @@
 #include "Widget.h"
 #include "Label.h"
 #include <string>
+#include <functional>
 
 class TextInput : public Widget {
 public:
@@ -17,9 +18,12 @@ public:
 
 	void draw() override;
 
+	void setOnEnter(const std::function<void()> &onEnter);
+
 private:
 	int size;
 	bool enabled, selected;
+	std::function<void(void)> onEnter;
 	std::string text;
 	Vector3d bgColor, color;
 };

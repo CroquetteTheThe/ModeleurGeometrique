@@ -19,11 +19,19 @@ int main(int argc, char **argv) {
 	auto label = new Label(10, 10, "Fichier", 65, 22);
 	pane->add(label);
 
-	auto textInput = new TextInput(10, 42, 10, 22);
-	pane->add(textInput);
-
 	auto statusBar = new Label(0, 600 - 22, "", 600, 22);
 	window->addWidget(statusBar);
+
+	auto textInput = new TextInput(10, 42, 10, 22);
+	textInput->setOnEnter([&]() {
+		try {
+			window->add(reader.fromFile(textInput->getText()));
+			statusBar->setText("");
+		} catch (const std::exception &e) {
+			statusBar->setText("Le fichier n'existe pas");
+		}
+	});
+	pane->add(textInput);
 
 	auto button = new Button(10, 74, 85, 22, "Charger");
 	button->bind([&]() {

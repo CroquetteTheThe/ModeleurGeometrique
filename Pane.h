@@ -4,6 +4,7 @@
 #include <vector>
 #include "Widget.h"
 #include <string>
+#include <functional>
 
 class Pane : public Widget {
 public:
@@ -21,7 +22,7 @@ private:
 	std::string title;
 	std::vector<Widget *> widgets;
 	bool selected;
-	int marginLeft, marginTop;
+	int marginLeft, marginTop, dx, dy;
 };
 
 

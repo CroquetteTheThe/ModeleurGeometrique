@@ -12,7 +12,7 @@
 #include "MouseMotionEvent.h"
 
 Pane::Pane(double x, double y, std::string title) : Widget(x, y, 0, 22), title(title), marginLeft(5), marginTop(10),
-                                                    selected(false) {
+                                                    selected(false), dx(0), dy(0) {
 	Widget *label = new Label(x, y, title, 0, 22, {200 / 255.0, 200 / 255.0, 200 / 255.0},
 	                          {64 / 255.0, 64 / 255.0, 64 / 255.0});
 	widgets.emplace_back(label);
@@ -47,13 +47,15 @@ bool Pane::notify(Event *e) {
 		auto clickEvent = dynamic_cast<MouseClickEvent *>(e);
 		if (widgets[0]->contains(clickEvent->getX(), clickEvent->getY()) && clickEvent->getButton() == LEFT) {
 			selected = clickEvent->isDown();
+			dx = clickEvent->getX() - x;
+			dy = clickEvent->getY() - y;
 			res = true;
 		}
 	}
 	if (e->getType() == MOUSE_MOTION_EVENT && selected) {
 		auto motionEvent = dynamic_cast<MouseMotionEvent *>(e);
-		x = motionEvent->getX();
-		y = motionEvent->getY();
+		x = motionEvent->getX() - dx;
+		y = motionEvent->getY() - dy;
 		widgets[0]->x = x;
 		widgets[0]->y = y;
 		double newY = y + widgets[0]->height + marginTop;

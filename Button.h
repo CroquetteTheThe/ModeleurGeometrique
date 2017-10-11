@@ -19,7 +19,7 @@ public:
 
 private:
 	std::string text;
-	std::function<void(void)> f;
+	std::function<void(void)> onClick;
 	bool hover;
 };
 

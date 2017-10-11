@@ -8,7 +8,9 @@ TextInput::TextInput(double x, double y, int size, double height) : Widget(x, y,
                                                                     size(size),
                                                                     text(""),
                                                                     bgColor(Color::white),
-                                                                    color(Color::white){
+                                                                    color(Color::white),
+                                                                    selected(false),
+                                                                    onEnter(nullptr) {
 
 }
 
@@ -32,6 +34,7 @@ bool TextInput::notify(Event *e) {
 				if (keyboardEvent->getKey() == '\b') {
 					text = text.substr(0, text.size() - 1);
 				} else if (keyboardEvent->getKey() == 13) { // enter
+					if (onEnter != nullptr) onEnter();
 					selected = false;
 				} else {
 					text = text + keyboardEvent->getKey();
@@ -65,6 +68,10 @@ void TextInput::draw() {
 		glutils::rectangle(x, y, width, height, {138 / 255.0, 219 / 255.0, 232 / 255.0});
 	else
 		glutils::rectangle(x, y, width, height, Color::black);
+}
+
+void TextInput::setOnEnter(const std::function<void()> &onEnter) {
+	TextInput::onEnter = onEnter;
 }
 
 
