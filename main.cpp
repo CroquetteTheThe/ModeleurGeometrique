@@ -1,11 +1,11 @@
 #include <iostream>
-#include "Window.h"
-#include "Shape.h"
-#include "OFFReader.h"
-#include "Label.h"
-#include "TextInput.h"
-#include "Button.h"
-#include "Pane.h"
+#include "UI/Window.h"
+#include "Shapes/Shape.h"
+#include "Readers/OFFReader.h"
+#include "UI/Label.h"
+#include "UI/TextInput.h"
+#include "UI/Button.h"
+#include "UI/Pane.h"
 #include <fstream>
 
 int main(int argc, char **argv) {

@@ -1,5 +1,5 @@
 #include "OFFReader.h"
-#include "Color.h"
+#include "../Utils/Color.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -21,7 +21,7 @@ Shape *OFFReader::fromFile(std::string path) {
 	stream >> nbVertices;
 	stream >> nbFaces;
 
-	double x, y, z;
+	float x, y, z;
 	auto shape = new Shape(Color::red);
 	for (auto i = 0; i < nbVertices; ++i) {
 		std::getline(file, line);

@@ -4,11 +4,11 @@
 #include <GL/glut.h>
 #endif
 #include "Label.h"
-#include "glUtils.h"
+#include "../Utils/glUtils.h"
 
 
-Label::Label(double x, double y, const std::string &text, double width, double height, const Vector3d &color,
-             const Vector3d &bgColor) : Widget(x, y, width, height), text(text), color(color),
+Label::Label(float x, float y, const std::string &text, float width, float height, const Vector3f &color,
+             const Vector3f &bgColor) : Widget(x, y, width, height), text(text), color(color),
                                         bgColor(bgColor) {}
 
 void Label::draw() {
@@ -21,7 +21,7 @@ const std::string &Label::getText() const {
 	return text;
 }
 
-bool Label::contains(int x, int y) {
+bool Label::contains(float x, float y) {
 	return x >= this->x && x <= this->x + width && y >= this->y && y <= this->y + height;
 }
 
@@ -29,10 +29,10 @@ void Label::setText(const std::string &text) {
 	Label::text = text;
 }
 
-void Label::setColor(const Vector3d &color) {
+void Label::setColor(const Vector3f &color) {
 	Label::color = color;
 }
 
-void Label::setBgColor(const Vector3d &bgColor) {
+void Label::setBgColor(const Vector3f &bgColor) {
 	Label::bgColor = bgColor;
 }

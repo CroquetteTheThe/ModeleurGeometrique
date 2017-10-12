@@ -1,11 +1,12 @@
 #include <iostream>
+#include <utility>
 #include "Button.h"
-#include "MouseClickEvent.h"
-#include "MouseMotionEvent.h"
-#include "glUtils.h"
+#include "../Events/MouseClickEvent.h"
+#include "../Events/MouseMotionEvent.h"
+#include "../Utils/glUtils.h"
 
-Button::Button(int x, int y, int width, int height, std::string text) : Widget(x, y, width, height),
-                                                                        text(text),
+Button::Button(float x, float y, float width, float height, std::string text) : Widget(x, y, width, height),
+                                                                                text(std::move(text)),
                                                                         hover(false) {
 
 }
@@ -15,14 +16,14 @@ void Button::bind(const std::function<void(void)> &f) {
 }
 
 void Button::draw() {
-	glutils::text(text, x + 8, y + 16 + (height - 18) / 2, {200 / 255.0, 200 / 255.0, 200 / 255.0});
+	glutils::text(text, x + 8, y + 16 + (height - 18) / 2, {200 / 255.0f, 200 / 255.0f, 200 / 255.0f});
 	if (hover)
-		glutils::roundedRectangle(x, y, width, height, 8, {76 / 255.0, 76 / 255.0, 76 / 255.0});
+		glutils::roundedRectangle(x, y, width, height, 8, {76 / 255.0f, 76 / 255.0f, 76 / 255.0f});
 	else
-		glutils::roundedRectangle(x, y, width, height, 8, {64 / 255.0, 64 / 255.0, 64 / 255.0});
+		glutils::roundedRectangle(x, y, width, height, 8, {64 / 255.0f, 64 / 255.0f, 64 / 255.0f});
 }
 
-bool Button::contains(int x, int y) {
+bool Button::contains(float x, float y) {
 	return x >= this->x && x <= this->x + width && y >= this->y && y <= this->y + height;
 }
 

@@ -8,7 +8,7 @@
 #include <cmath>
 #include "glUtils.h"
 
-void glutils::rectangle(int x, int y, int width, int height, Vector3d color) {
+void glutils::rectangle(float x, float y, float width, float height, Vector3f color) {
 	glColor3f(color.x, color.y, color.z);
 
 	glBegin(GL_QUADS);
@@ -19,7 +19,7 @@ void glutils::rectangle(int x, int y, int width, int height, Vector3d color) {
 	glEnd();
 }
 
-void glutils::roundedRectangle(int x, int y, int width, int height, int radius, Vector3d color) {
+void glutils::roundedRectangle(float x, float y, float width, float height, float radius, Vector3f color) {
 	glColor3f(color.x, color.y, color.z);
 
 	glBegin(GL_QUADS);
@@ -92,9 +92,8 @@ void glutils::roundedRectangle(int x, int y, int width, int height, int radius, 
 }
 
 
-void glutils::text(std::string text, int x, int y, Vector3d color) {
+void glutils::text(const std::string &text, float x, float y, Vector3f color) {
 	glColor3f(color.x, color.y, color.z);
-	char *c;
 	glRasterPos3f(x, y, 0);
 	for (auto c: text) {
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);

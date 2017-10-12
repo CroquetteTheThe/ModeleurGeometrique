@@ -1,8 +1,8 @@
 #include "Window.h"
-#include "Color.h"
-#include "MouseClickEvent.h"
-#include "KeyboardEvent.h"
-#include "MouseMotionEvent.h"
+#include "../Utils/Color.h"
+#include "../Events/MouseClickEvent.h"
+#include "../Events/KeyboardEvent.h"
+#include "../Events/MouseMotionEvent.h"
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -150,6 +150,9 @@ void Window::mouseHandler(int button, int state, int x, int y) {
 		b = WHEEL_UP;
 	else if (button == 4)
 		b = WHEEL_DOWN;
+	else
+		throw std::exception();
+
 	auto e = MouseClickEvent(b, x, y, state == GLUT_DOWN);
 	bool redisplay = false;
 	for (auto listener : listeners) {

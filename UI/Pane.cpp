@@ -6,15 +6,15 @@
 #endif
 #include <iostream>
 #include "Pane.h"
-#include "glUtils.h"
+#include "../Utils/glUtils.h"
 #include "Label.h"
-#include "MouseClickEvent.h"
-#include "MouseMotionEvent.h"
+#include "../Events/MouseClickEvent.h"
+#include "../Events/MouseMotionEvent.h"
 
-Pane::Pane(double x, double y, std::string title) : Widget(x, y, 0, 22), title(title), marginLeft(5), marginTop(10),
+Pane::Pane(float x, float y, std::string title) : Widget(x, y, 0, 22), title(title), marginLeft(5), marginTop(10),
                                                     selected(false), dx(0), dy(0) {
-	Widget *label = new Label(x, y, title, 0, 22, {200 / 255.0, 200 / 255.0, 200 / 255.0},
-	                          {64 / 255.0, 64 / 255.0, 64 / 255.0});
+	Widget *label = new Label(x, y, title, 0, 22, {200 / 255.0f, 200 / 255.0f, 200 / 255.0f},
+	                          {64 / 255.0f, 64 / 255.0f, 64 / 255.0f});
 	widgets.emplace_back(label);
 }
 
@@ -36,7 +36,7 @@ void Pane::draw() {
 		glPopMatrix();
 	}
 
-	glutils::rectangle(x, y, width, height + marginTop, {46 / 255.0, 46 / 255.0, 46 / 255.0});
+	glutils::rectangle(x, y, width, height + marginTop, {46 / 255.0f, 46 / 255.0f, 46 / 255.0f});
 
 }
 
@@ -58,7 +58,7 @@ bool Pane::notify(Event *e) {
 		y = motionEvent->getY() - dy;
 		widgets[0]->x = x;
 		widgets[0]->y = y;
-		double newY = y + widgets[0]->height + marginTop;
+		float newY = y + widgets[0]->height + marginTop;
 		for (int i = 1; i < widgets.size(); i++) {
 			auto widget = widgets[i];
 			widget->x = x + marginLeft;
@@ -74,6 +74,6 @@ bool Pane::notify(Event *e) {
 	return res;
 }
 
-bool Pane::contains(int x, int y) {
+bool Pane::contains(float x, float y) {
 	return x >= this->x && x <= this->x + width && y >= this->y && y <= this->y + height;
 }
