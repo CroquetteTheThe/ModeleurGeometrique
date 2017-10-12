@@ -8,13 +8,13 @@
 
 class TextInput : public Widget {
 public:
-	TextInput(double x, double y, int size, double height);
+	TextInput(float x, float y, int size, float height);
 
 	bool notify(Event *e) override;
 
 	const std::string &getText() const;
 
-	bool contains(int x, int y) override;
+	bool contains(float x, float y) override;
 
 	void draw() override;
 
@@ -25,7 +25,7 @@ private:
 	bool enabled, selected;
 	std::function<void(void)> onEnter;
 	std::string text;
-	Vector3d bgColor, color;
+	Vector3f bgColor, color;
 };
 
 

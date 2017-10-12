@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
-#include "Drawable.h"
+#include "../Shapes/Drawable.h"
 #include "Widget.h"
 #include <string>
 #include <vector>
@@ -32,7 +32,7 @@ private:
 	static std::vector<EventListener *> listeners;
 	static bool leftButtonPressed;
 	static int angleX, angleY, x, y, width, height;
-	static double scaleFactor;
+	static float scaleFactor;
 	static GLenum faceMode;
 
 	static void render();

@@ -1,10 +1,10 @@
 #include <iostream>
-#include "glUtils.h"
+#include "../Utils/glUtils.h"
 #include "TextInput.h"
-#include "MouseClickEvent.h"
-#include "KeyboardEvent.h"
+#include "../Events/MouseClickEvent.h"
+#include "../Events/KeyboardEvent.h"
 
-TextInput::TextInput(double x, double y, int size, double height) : Widget(x, y, 12 * size, height),
+TextInput::TextInput(float x, float y, int size, float height) : Widget(x, y, 12 * size, height),
                                                                     size(size),
                                                                     text(""),
                                                                     bgColor(Color::white),
@@ -52,7 +52,7 @@ const std::string &TextInput::getText() const {
 	return text;
 }
 
-bool TextInput::contains(int x, int y) {
+bool TextInput::contains(float x, float y) {
 	return x >= this->x && x <= this->x + width && y >= this->y && y <= this->y + height;
 }
 
@@ -65,7 +65,7 @@ void TextInput::draw() {
 
 	glutils::rectangle(x + 1, y + 1, width - 2, height - 2, Color::white);
 	if (selected)
-		glutils::rectangle(x, y, width, height, {138 / 255.0, 219 / 255.0, 232 / 255.0});
+		glutils::rectangle(x, y, width, height, {138 / 255.0f, 219 / 255.0f, 232 / 255.0f});
 	else
 		glutils::rectangle(x, y, width, height, Color::black);
 }

@@ -7,13 +7,13 @@
 
 class Button : public Widget {
 public:
-	Button(int x, int y, int width, int height, std::string text);
+	Button(float x, float y, float width, float height, std::string text);
 
 	void bind(const std::function<void(void)> &f);
 
 	bool notify(Event *e) override;
 
-	bool contains(int x, int y) override;
+	bool contains(float x, float y) override;
 
 	void draw() override;
 
