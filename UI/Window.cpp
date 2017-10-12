@@ -17,7 +17,7 @@ int Window::angleX = 0;
 int Window::angleY = 0;
 int Window::width = 0;
 int Window::height = 0;
-double Window::scaleFactor = 0.40;
+float Window::scaleFactor = 0.40;
 std::vector<Drawable *> Window::drawables;
 std::vector<Widget *> Window::widgets;
 std::vector<EventListener *> Window::listeners;
