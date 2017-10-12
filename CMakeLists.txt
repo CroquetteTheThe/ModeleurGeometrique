@@ -3,7 +3,7 @@ project(ModelisateurGeometrique)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp Shapes/Drawable.h UI/Window.cpp UI/Window.h Utils/Color.cpp Utils/Color.h Utils/Vector3f.cpp Utils/Vector3f.h Shapes/Shape.cpp Shapes/Shape.h Readers/ShapeReader.h Readers/OFFReader.cpp Readers/OFFReader.h UI/Widget.h UI/Label.cpp UI/Label.h UI/TextInput.cpp UI/TextInput.h Events/EventType.h Events/Event.h Events/MouseClickEvent.cpp Events/MouseClickEvent.h Events/MouseButton.h Events/KeyboardEvent.cpp Events/KeyboardEvent.h Events/EventListener.h UI/Button.cpp UI/Button.h Utils/glUtils.cpp Utils/glUtils.h Events/MouseMotionEvent.cpp Events/MouseMotionEvent.h UI/Pane.cpp UI/Pane.h)
+set(SOURCE_FILES main.cpp Shapes/Drawable.h UI/Window.cpp UI/Window.h Utils/Color.cpp Utils/Color.h Utils/Vector3f.cpp Utils/Vector3f.h Shapes/Shape.cpp Shapes/Shape.h Readers/ShapeReader.h Readers/OFFReader.cpp Readers/OFFReader.h UI/Widget.h UI/Label.cpp UI/Label.h UI/TextInput.cpp UI/TextInput.h Events/EventType.h Events/Event.h Events/MouseClickEvent.cpp Events/MouseClickEvent.h Events/MouseButton.h Events/KeyboardEvent.cpp Events/KeyboardEvent.h Events/EventListener.h UI/Button.cpp UI/Button.h Utils/glUtils.cpp Utils/glUtils.h Events/MouseMotionEvent.cpp Events/MouseMotionEvent.h UI/Pane.cpp UI/Pane.h UI/Slider.cpp UI/Slider.h)
 add_executable(ModelisateurGeometrique ${SOURCE_FILES})
 
 find_package(OpenGL REQUIRED)

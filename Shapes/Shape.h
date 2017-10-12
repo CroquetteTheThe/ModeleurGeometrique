@@ -16,7 +16,6 @@ public:
 	void addFace(std::vector<int> face);
 
 private:
-	Vector3f color;
 	std::vector<Vector3f> points;
 	std::vector<std::vector<int>> faces;
 };

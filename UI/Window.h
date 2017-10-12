@@ -21,6 +21,8 @@ public:
 	 */
 	void add(Drawable *drawable);
 
+	static const std::vector<Drawable *> &getDrawables();
+
 	void addWidget(Widget *widget);
 
 	void addListener(EventListener *listener);

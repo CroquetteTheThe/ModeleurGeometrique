@@ -17,7 +17,7 @@ int Window::angleX = 0;
 int Window::angleY = 0;
 int Window::width = 0;
 int Window::height = 0;
-double Window::scaleFactor = 0.40;
+float Window::scaleFactor = 0.40;
 std::vector<Drawable *> Window::drawables;
 std::vector<Widget *> Window::widgets;
 std::vector<EventListener *> Window::listeners;
@@ -216,4 +216,8 @@ void Window::addWidget(Widget *widget) {
 
 void Window::addListener(EventListener *listener) {
 	Window::listeners.emplace_back(listener);
+}
+
+const std::vector<Drawable *> &Window::getDrawables() {
+	return drawables;
 }
