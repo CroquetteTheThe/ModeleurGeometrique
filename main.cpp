@@ -9,8 +9,11 @@
 #include "UI/Slider.h"
 #include <fstream>
 
+const int windowWidth = 1366;
+const int windowHeight = 720;
+
 int main(int argc, char **argv) {
-	auto window = new Window(&argc, argv, "Projet image - Groupe 5", 600, 600);
+	auto window = new Window(&argc, argv, "Projet image - Groupe 5", windowWidth, windowHeight);
 	auto reader = OFFReader();
 
 
@@ -55,7 +58,7 @@ int main(int argc, char **argv) {
 	auto label = new Label(10, 10, "Fichier", 65, 22);
 	pane->add(label);
 
-	auto statusBar = new Label(0, 600 - 22, "", 600, 22);
+	auto statusBar = new Label(0, windowHeight - 22, "", windowWidth, 22);
 	window->addWidget(statusBar);
 
 	auto textInput = new TextInput(10, 42, 10, 22);
