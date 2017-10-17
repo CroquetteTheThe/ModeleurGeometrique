@@ -60,7 +60,7 @@ void Window::render() {
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glScalef(Window::scaleFactor, Window::scaleFactor, Window::scaleFactor);
+	glScalef(Window::scaleFactor * Window::height / Window::width, Window::scaleFactor, Window::scaleFactor);
 	glRotatef(Window::angleY, 1.0, 0.0, 0.0);
 	glRotatef(Window::angleX, 0.0, 1.0, 0.0);
 
