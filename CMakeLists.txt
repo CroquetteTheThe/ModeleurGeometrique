@@ -2,12 +2,22 @@ cmake_minimum_required(VERSION 3.8)
 project(ModelisateurGeometrique)
 
 set(CMAKE_CXX_STANDARD 14)
+file(GLOB sources "*.cpp")
+file(GLOB headers "*.h")
 
-set(SOURCE_FILES main.cpp Shapes/Drawable.h UI/Window.cpp UI/Window.h Utils/Color.cpp Utils/Color.h Utils/Vector3f.cpp Utils/Vector3f.h Shapes/Shape.cpp Shapes/Shape.h Readers/ShapeReader.h Readers/OFFReader.cpp Readers/OFFReader.h UI/Widget.h UI/Label.cpp UI/Label.h UI/TextInput.cpp UI/TextInput.h Events/EventType.h Events/Event.h Events/MouseClickEvent.cpp Events/MouseClickEvent.h Events/MouseButton.h Events/KeyboardEvent.cpp Events/KeyboardEvent.h Events/EventListener.h UI/Button.cpp UI/Button.h Utils/glUtils.cpp Utils/glUtils.h Events/MouseMotionEvent.cpp Events/MouseMotionEvent.h UI/Pane.cpp UI/Pane.h UI/Slider.cpp UI/Slider.h)
-add_executable(ModelisateurGeometrique ${SOURCE_FILES})
+set(testing_sources ${sources})
+list(REMOVE_ITEM testing_sources ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+list(REMOVE_ITEM sources ${CMAKE_CURRENT_SOURCE_DIR}/tests/tests.cpp)
+add_executable(ModelisateurGeometrique ${sources} ${headers})
+add_executable(testing ${testing_sources} ${headers})
 
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
 
+add_subdirectory(lib/googletest)
+include_directories(lib/googletest/googletest/include)
+include_directories(lib/googletest/googlemock/include)
+
 target_link_libraries(ModelisateurGeometrique ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
+target_link_libraries(testing gtest gtest_main)
