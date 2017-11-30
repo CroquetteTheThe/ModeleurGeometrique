@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Utils/Vector3f.h"
+#include "DrawableType.h"
 
 /**
  * A simple interface for things that can be drawn
@@ -14,6 +15,8 @@ public:
 
 	virtual void draw() = 0;
 
+	virtual DrawableType getType() = 0;
+
 	const Vector3f &getColor() const {
 		return color;
 	}
@@ -21,6 +24,10 @@ public:
 	void setColor(const Vector3f &color) {
 		Drawable::color = color;
 	}
+
+	float x;
+	float y;
+	float z;
 
 protected:
 	Vector3f color;

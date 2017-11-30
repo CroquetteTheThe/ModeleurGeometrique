@@ -28,3 +28,7 @@ void Shape::addFace(std::vector<int> face) {
 void Shape::addPoint(Vector3f point) {
 	points.emplace_back(point);
 }
+
+DrawableType Shape::getType() {
+	return SHAPE;
+}

@@ -20,6 +20,8 @@ public:
 
 	void setOnEnter(const std::function<void()> &onEnter);
 
+	void setText(std::string text);
+
 private:
 	int size;
 	bool enabled, selected;

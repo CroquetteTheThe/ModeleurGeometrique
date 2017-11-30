@@ -4,6 +4,7 @@
 #include <vector>
 #include "../Utils/Vector3f.h"
 #include "Drawable.h"
+#include "DrawableType.h"
 
 class Shape : public Drawable {
 public:
@@ -14,6 +15,8 @@ public:
 	void addPoint(Vector3f point);
 
 	void addFace(std::vector<int> face);
+
+	DrawableType getType() override;
 
 private:
 	std::vector<Vector3f> points;

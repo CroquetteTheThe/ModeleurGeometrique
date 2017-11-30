@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "../Shapes/Drawable.h"
 #include "Widget.h"
+#include "ItemPane.h"
 #include <string>
 #include <vector>
 
@@ -29,6 +30,7 @@ public:
 
 private:
 	GLFWwindow *window;
+
 	static std::vector<Drawable *> drawables;
 	static std::vector<Widget *> widgets;
 	static std::vector<EventListener *> listeners;

@@ -17,6 +17,10 @@ int main(int argc, char **argv) {
 	auto reader = OFFReader();
 
 
+    auto itemPane = new ItemPane(10.f, 500.f, "Items");
+    window->addWidget(itemPane);
+    window->addListener(itemPane);
+
 	auto colorPane = new Pane(10, 200, "Color");
 	window->addWidget(colorPane);
 	window->addListener(colorPane);
@@ -63,6 +67,7 @@ int main(int argc, char **argv) {
 
 	auto textInput = new TextInput(10, 42, 10, 22);
 	textInput->setOnEnter([&]() {
+		std::cout << textInput << std::endl;
 		try {
 			auto shape = reader.fromFile(textInput->getText());
 			window->add(shape);
@@ -92,6 +97,7 @@ int main(int argc, char **argv) {
 		}
 	});
 	pane->add(button);
+
 
 
 	window->show();
