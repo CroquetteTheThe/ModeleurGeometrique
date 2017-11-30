@@ -7,6 +7,7 @@
 #include "UI/Button.h"
 #include "UI/Pane.h"
 #include "UI/Slider.h"
+#include "Shapes/Light.h"
 #include <fstream>
 
 const int windowWidth = 1366;
@@ -92,6 +93,34 @@ int main(int argc, char **argv) {
 		}
 	});
 	pane->add(button);
+
+    /* Light Pane*/
+    auto lightPane = new Pane(10, 430, "Light");
+    window->addWidget(lightPane);
+    window->addListener(lightPane);
+    lightPane->add(new Label(10, 10, "Position X", 65, 22));
+    auto xInput = new TextInput(10, 42, 10, 22);
+    lightPane->add(xInput);
+    lightPane->add(new Label(10, 10, "Position Y", 65, 22));
+    auto yInput = new TextInput(10, 55, 10, 22);
+    lightPane->add(yInput);
+    lightPane->add(new Label(10, 10, "Position Z", 65, 22));
+    auto zInput = new TextInput(10, 65, 10, 22);
+
+
+    lightPane->add(zInput);
+
+    auto lightButton = new Button(10, 74, 85, 22, "Placer");
+    lightButton->bind([&]() {
+        try {
+            auto light = new Light(Vector3f(.0, .5, .5), stof(xInput->getText()), stof(yInput->getText()),
+                                   stof(zInput->getText()));
+            window->add(light);
+        } catch (const std::exception &e) {
+
+        }
+    });
+    lightPane->add(lightButton);
 
 
 	window->show();
