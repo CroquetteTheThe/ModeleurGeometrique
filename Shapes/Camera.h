@@ -14,7 +14,6 @@ private:
     Shape *shape;
 
 public:
-    //Camera(const Vector3f &color, Vector3f position, Vector3f direction, float fov);
     explicit Camera(const Vector3f &color);
 
     void draw() override;
