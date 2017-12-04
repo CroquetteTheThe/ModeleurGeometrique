@@ -2,6 +2,7 @@
 
 
 #include <vector>
+#include <set>
 #include "../Utils/Vector3f.h"
 #include "Drawable.h"
 
@@ -18,6 +19,8 @@ public:
 private:
 	std::vector<Vector3f> points;
 	std::vector<std::vector<int>> faces;
+
+	std::set<int> neigborVertices(int verticeIndex);
 };
 
 

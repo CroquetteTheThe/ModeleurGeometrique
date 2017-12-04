@@ -3,6 +3,8 @@
 #else
 #include <GL/glut.h>
 #endif
+
+#include <algorithm>
 #include "Shape.h"
 
 void Shape::draw() {
@@ -27,4 +29,15 @@ void Shape::addFace(std::vector<int> face) {
 
 void Shape::addPoint(Vector3f point) {
 	points.emplace_back(point);
+}
+
+std::set<int> Shape::neigborVertices(int verticeIndex) {
+	std::set<int> res;
+	for (auto face : faces) {
+		auto it = std::find(face.begin(), face.end(), verticeIndex);
+		if (it == face.end()) continue;
+		res.emplace(it + 1 == face.end() ? face[0] : *it);
+		res.emplace(it == face.begin() ? face[face.size() - 1] : *(it + 1));
+	}
+	return res;
 }
