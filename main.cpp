@@ -113,8 +113,8 @@ int main(int argc, char **argv) {
 	cameraPane->add(new Label(10, 10, "Z", 65, 22));
 	cameraPane->add(cameraZ);
 
-	auto buttonCam = new Button(10, 74, 85, 22, "Deplacer");
-	buttonCam->bind([&]() {
+    auto buttonCamPosition = new Button(10, 74, 85, 22, "Deplacer");
+    buttonCamPosition->bind([&]() {
 
 		auto position = camera->getPosition();
 		position.x = stof(cameraX->getText());
@@ -124,7 +124,21 @@ int main(int argc, char **argv) {
 		window->add(camera);
 		camera->draw();
 	});
-	cameraPane->add(buttonCam);
+    cameraPane->add(buttonCamPosition);
+
+
+    auto buttonCamDirection = new Button(10, 74, 85, 22, "Direction");
+    buttonCamDirection->bind([&]() {
+
+        auto direction = camera->getDirection();
+        direction.x = stof(cameraX->getText());
+        direction.y = stof(cameraY->getText());
+        direction.z = stof(cameraZ->getText());
+        camera->setDirection(direction);
+        window->add(camera);
+        camera->draw();
+    });
+    cameraPane->add(buttonCamDirection);
 
 	window->show();
 	return EXIT_SUCCESS;

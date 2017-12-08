@@ -54,10 +54,27 @@ void Camera::draw() {
     Vector3f lookAtDiff = {this->getPosition().x - this->getDirection().x,
                            this->getPosition().y - this->getDirection().y,
                            this->getPosition().z - this->getDirection().z};
+
+    Vector3f vectRotation = {0., 0., 0.};
+
     auto xRotation = atan2(lookAtDiff.x, lookAtDiff.z);
     auto yRotation = atan2(lookAtDiff.y, sqrt(lookAtDiff.x * lookAtDiff.x + lookAtDiff.z * lookAtDiff.z));
-    glRotatef((GLfloat) (xRotation * 180 / PI), 0, this->getPosition().y, 0);
-    glRotatef((GLfloat) (yRotation * 180 / PI), -this->getPosition().x, 0, 0);
+
+    if (xRotation > 0 && yRotation > 0) {
+        vectRotation.x = this->getPosition().x;
+        vectRotation.y = -this->getPosition().y;
+    } else if (xRotation < 0 && yRotation < 0) {
+        vectRotation.x = -this->getPosition().x;
+        vectRotation.y = this->getPosition().y;
+    } else if (xRotation > 0 && yRotation < 0) {
+        vectRotation.x = -this->getPosition().y;
+        vectRotation.y = -this->getPosition().x;
+    } else if (xRotation < 0 && yRotation > 0) {
+        vectRotation.x = this->getPosition().y;
+        vectRotation.y = this->getPosition().x;
+    }
+    glRotatef((GLfloat) (xRotation * 180 / PI), 0, vectRotation.x, 0);
+    glRotatef((GLfloat) (yRotation * 180 / PI), vectRotation.y, 0, 0);
     this->shape->draw();
 
     glPopMatrix();
