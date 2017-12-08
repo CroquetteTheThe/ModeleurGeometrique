@@ -11,20 +11,42 @@
 
 void Light::draw() {
 
-    glPushMatrix();
-    glTranslatef(this->position[0], this->position[1], this->position[2]);
-    this->model->draw();
+    //glPushMatrix();
+    //glTranslatef(this->position[0], this->position[1], this->position[2]);
+    //this->model->draw();
     //printf("Positions : %f %f %f",this->position[0],this->position[1],this->position[2]);
 
-    glPopMatrix();
+    //glPopMatrix();
 
     // glPushMatrix();
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glLightfv(GL_LIGHT0, GL_POSITION, this->position);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, this->ambient);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, this->specular);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, this->diffuse);
+    switch (this->lightNb) {
+        case 0:
+            this->enableLight0();
+            break;
+        case 1:
+            this->enableLight1();
+            break;
+        case 2:
+            this->enableLight2();
+            break;
+        case 3:
+            this->enableLight3();
+            break;
+        case 4:
+            this->enableLight4();
+            break;
+        case 5:
+            this->enableLight5();
+            break;
+        case 6:
+            this->enableLight6();
+            break;
+        case 7:
+            this->enableLight7();
+            break;
+
+    }
+
 
     // glPopMatrix();
 
@@ -61,11 +83,76 @@ void Light::setDiffuse(float r, float g, float b, float a) {
     this->diffuse[3] = a;
 }
 
-Light::Light(const Vector3f &color, float x, float y, float z) : Drawable(color) {
+Light::Light(const Vector3f &color, float x, float y, float z, int lightNb) : Drawable(color) {
     this->position[0] = x;
     this->position[1] = y;
     this->position[2] = z;
+    this->lightNb = lightNb;
     auto reader = OFFReader();
     this->model = reader.fromFile("../resources/seashell.off");
     this->model->setColor(color);
+}
+
+void Light::enableLight0() {
+    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_POSITION, this->position);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, this->ambient);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, this->specular);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, this->diffuse);
+}
+
+void Light::enableLight1() {
+    glEnable(GL_LIGHT1);
+    glLightfv(GL_LIGHT1, GL_POSITION, this->position);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, this->ambient);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, this->specular);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, this->diffuse);
+}
+
+void Light::enableLight2() {
+    glEnable(GL_LIGHT2);
+    glLightfv(GL_LIGHT2, GL_POSITION, this->position);
+    glLightfv(GL_LIGHT2, GL_AMBIENT, this->ambient);
+    glLightfv(GL_LIGHT2, GL_SPECULAR, this->specular);
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, this->diffuse);
+}
+
+void Light::enableLight3() {
+    glEnable(GL_LIGHT3);
+    glLightfv(GL_LIGHT3, GL_POSITION, this->position);
+    glLightfv(GL_LIGHT3, GL_AMBIENT, this->ambient);
+    glLightfv(GL_LIGHT3, GL_SPECULAR, this->specular);
+    glLightfv(GL_LIGHT3, GL_DIFFUSE, this->diffuse);
+}
+
+void Light::enableLight4() {
+    glEnable(GL_LIGHT4);
+    glLightfv(GL_LIGHT4, GL_POSITION, this->position);
+    glLightfv(GL_LIGHT4, GL_AMBIENT, this->ambient);
+    glLightfv(GL_LIGHT4, GL_SPECULAR, this->specular);
+    glLightfv(GL_LIGHT4, GL_DIFFUSE, this->diffuse);
+}
+
+void Light::enableLight5() {
+    glEnable(GL_LIGHT5);
+    glLightfv(GL_LIGHT5, GL_POSITION, this->position);
+    glLightfv(GL_LIGHT5, GL_AMBIENT, this->ambient);
+    glLightfv(GL_LIGHT5, GL_SPECULAR, this->specular);
+    glLightfv(GL_LIGHT5, GL_DIFFUSE, this->diffuse);
+}
+
+void Light::enableLight6() {
+    glEnable(GL_LIGHT6);
+    glLightfv(GL_LIGHT6, GL_POSITION, this->position);
+    glLightfv(GL_LIGHT6, GL_AMBIENT, this->ambient);
+    glLightfv(GL_LIGHT6, GL_SPECULAR, this->specular);
+    glLightfv(GL_LIGHT6, GL_DIFFUSE, this->diffuse);
+}
+
+void Light::enableLight7() {
+    glEnable(GL_LIGHT7);
+    glLightfv(GL_LIGHT7, GL_POSITION, this->position);
+    glLightfv(GL_LIGHT7, GL_AMBIENT, this->ambient);
+    glLightfv(GL_LIGHT7, GL_SPECULAR, this->specular);
+    glLightfv(GL_LIGHT7, GL_DIFFUSE, this->diffuse);
 }

@@ -18,6 +18,7 @@ public:
 private:
 	std::vector<Vector3f> points;
 	std::vector<std::vector<int>> faces;
+
 };
 
 

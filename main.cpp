@@ -16,7 +16,8 @@ const int windowHeight = 720;
 int main(int argc, char **argv) {
 	auto window = new Window(&argc, argv, "Projet image - Groupe 5", windowWidth, windowHeight);
 	auto reader = OFFReader();
-
+    bool enableLights = false;
+    int nbLights = 0;
 
 	auto colorPane = new Pane(10, 200, "Color");
 	window->addWidget(colorPane);
@@ -113,9 +114,20 @@ int main(int argc, char **argv) {
     auto lightButton = new Button(10, 74, 85, 22, "Placer");
     lightButton->bind([&]() {
         try {
-            auto light = new Light(Vector3f(.0, .5, .5), stof(xInput->getText()), stof(yInput->getText()),
-                                   stof(zInput->getText()));
-            window->add(light);
+            if (nbLights < 8) {
+                auto light = new Light(Vector3f(.0, .5, .5), stof(xInput->getText()), stof(yInput->getText()),
+                                       stof(zInput->getText()), nbLights);
+                window->add(light);
+                nbLights++;
+            } else {
+                statusBar->setText("Vous avez atteint le nombre maximum de lumières (8)");
+            }
+
+            if (!enableLights) {
+                glEnable(GL_LIGHTING);
+            }
+
+
         } catch (const std::exception &e) {
 
         }

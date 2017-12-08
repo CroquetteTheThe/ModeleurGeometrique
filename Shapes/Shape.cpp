@@ -6,7 +6,8 @@
 #include "Shape.h"
 
 void Shape::draw() {
-	glColor3d(color.x, color.y, color.z);
+
+    glColor3d(color.x, color.y, color.z);
 	if (faces[0].size() == 3)
 		glBegin(GL_TRIANGLES);
 	else

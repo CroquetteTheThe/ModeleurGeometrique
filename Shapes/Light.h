@@ -9,7 +9,7 @@
 
 class Light : public Drawable {
 public:
-    explicit Light(const Vector3f &color, float x, float y, float z);
+    explicit Light(const Vector3f &color, float x, float y, float z, int lightNb);
 
     void setPosition(float x, float y, float z);
 
@@ -21,9 +21,26 @@ public:
 
     void draw() override;
 
+    void enableLight0();
+
+    void enableLight1();
+
+    void enableLight2();
+
+    void enableLight3();
+
+    void enableLight4();
+
+    void enableLight5();
+
+    void enableLight6();
+
+    void enableLight7();
+
 
 private:
     Shape *model;
+    int lightNb;
     GLfloat position[4] = {1.0, 1.0, 1.0, 0.0};
     GLfloat ambient[4] = {0.0, 0.0, 0.0, 1.0};
     GLfloat specular[4] = {1.0, 0.0, 0.0, 1.0};
