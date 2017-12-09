@@ -1,6 +1,7 @@
 #include <iostream>
 #include "UI/Window.h"
 #include "Shapes/Shape.h"
+#include "Shapes/Camera.h"
 #include "Readers/OFFReader.h"
 #include "UI/Label.h"
 #include "UI/TextInput.h"
@@ -15,7 +16,7 @@ const int windowHeight = 720;
 int main(int argc, char **argv) {
 	auto window = new Window(&argc, argv, "Projet image - Groupe 5", windowWidth, windowHeight);
 	auto reader = OFFReader();
-
+	auto camera = new Camera({0.5, 0.5, 0.5});
 
 	auto colorPane = new Pane(10, 200, "Color");
 	window->addWidget(colorPane);
@@ -93,6 +94,51 @@ int main(int argc, char **argv) {
 	});
 	pane->add(button);
 
+
+	auto cameraPane = new Pane(10, 420, "Camera");
+	float posCamX, posCamY, posCamZ;
+	window->addWidget(cameraPane);
+	window->addListener(cameraPane);
+
+	auto cameraX = new TextInput(10, 42, 10, 22);
+	cameraPane->add(new Label(10, 10, "X", 65, 22));
+	cameraPane->add(cameraX);
+
+	auto cameraY = new TextInput(10, 42, 10, 22);
+	cameraPane->add(new Label(10, 10, "Y", 65, 22));
+	cameraPane->add(cameraY);
+
+	auto cameraZ = new TextInput(10, 42, 10, 22);
+
+	cameraPane->add(new Label(10, 10, "Z", 65, 22));
+	cameraPane->add(cameraZ);
+
+    auto buttonCamPosition = new Button(10, 74, 85, 22, "Deplacer");
+    buttonCamPosition->bind([&]() {
+
+		auto position = camera->getPosition();
+		position.x = stof(cameraX->getText());
+		position.y = stof(cameraY->getText());
+		position.z = stof(cameraZ->getText());
+		camera->setPosition(position);
+		window->add(camera);
+		camera->draw();
+	});
+    cameraPane->add(buttonCamPosition);
+
+
+    auto buttonCamDirection = new Button(10, 74, 85, 22, "Direction");
+    buttonCamDirection->bind([&]() {
+
+        auto direction = camera->getDirection();
+        direction.x = stof(cameraX->getText());
+        direction.y = stof(cameraY->getText());
+        direction.z = stof(cameraZ->getText());
+        camera->setDirection(direction);
+        window->add(camera);
+        camera->draw();
+    });
+    cameraPane->add(buttonCamDirection);
 
 	window->show();
 	return EXIT_SUCCESS;
