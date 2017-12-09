@@ -3,6 +3,9 @@
 #include "../Events/MouseClickEvent.h"
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
+#include "../UI/ItemPane.h"
+#include "../Events/DrawableCreationEvent.h"
+
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -51,6 +54,14 @@ Window::Window(int *pargc, char **argv, std::string title, int width, int height
 
 void Window::add(Drawable *drawable) {
 	Window::drawables.push_back(drawable);
+	auto e = DrawableCreationEvent(drawable);
+	bool redisplay = false;
+	for (auto listener : listeners) {
+		redisplay |= listener->notify(&e);
+	}
+	if (redisplay) {
+		glutPostRedisplay();
+	}
 }
 
 void Window::render() {
@@ -68,6 +79,7 @@ void Window::render() {
 	glPolygonMode(GL_FRONT_AND_BACK, Window::faceMode);
 	for (auto d: Window::drawables) {
 		glPushMatrix();
+        glTranslatef(d->x, d->y, d->z);
 		d->draw();
 		glPopMatrix();
 	}

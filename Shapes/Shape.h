@@ -2,8 +2,10 @@
 
 
 #include <vector>
+#include <set>
 #include "../Utils/Vector3f.h"
 #include "Drawable.h"
+#include "DrawableType.h"
 
 class Shape : public Drawable {
 public:
@@ -15,9 +17,13 @@ public:
 
 	void addFace(std::vector<int> face);
 
+	DrawableType getType() override;
+
 private:
 	std::vector<Vector3f> points;
 	std::vector<std::vector<int>> faces;
+
+	std::set<int> neigborVertices(int verticeIndex);
 };
 
 

@@ -18,6 +18,10 @@ int main(int argc, char **argv) {
 	auto reader = OFFReader();
 	auto camera = new Camera({0.5, 0.5, 0.5});
 
+    auto itemPane = new ItemPane(10.f, 500.f, "Items");
+    window->addWidget(itemPane);
+    window->addListener(itemPane);
+
 	auto colorPane = new Pane(10, 200, "Color");
 	window->addWidget(colorPane);
 	window->addListener(colorPane);
@@ -64,6 +68,7 @@ int main(int argc, char **argv) {
 
 	auto textInput = new TextInput(10, 42, 10, 22);
 	textInput->setOnEnter([&]() {
+		std::cout << textInput << std::endl;
 		try {
 			auto shape = reader.fromFile(textInput->getText());
 			window->add(shape);
@@ -95,6 +100,7 @@ int main(int argc, char **argv) {
 	pane->add(button);
 
 
+<<<<<<< HEAD
 	auto cameraPane = new Pane(10, 420, "Camera");
 	float posCamX, posCamY, posCamZ;
 	window->addWidget(cameraPane);
@@ -139,6 +145,8 @@ int main(int argc, char **argv) {
         camera->draw();
     });
     cameraPane->add(buttonCamDirection);
+=======
+>>>>>>> 60dfda7a12e21391494a9d36c6c5476f11478d76
 
 	window->show();
 	return EXIT_SUCCESS;
