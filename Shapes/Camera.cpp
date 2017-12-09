@@ -77,5 +77,12 @@ void Camera::draw() {
     glRotatef((GLfloat) (yRotation * 180 / PI), vectRotation.y, 0, 0);
     this->shape->draw();
 
+
     glPopMatrix();
+    glBegin(GL_LINES);
+    glLoadIdentity();
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex3f(this->getPosition().x, this->getPosition().y, this->getPosition().z);
+    glVertex3f(this->getDirection().x, this->getDirection().y, this->getDirection().z);
+    glEnd();
 }
