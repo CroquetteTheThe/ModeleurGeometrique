@@ -107,16 +107,58 @@ int main(int argc, char **argv) {
     lightPane->add(yInput);
     lightPane->add(new Label(10, 10, "Position Z", 65, 22));
     auto zInput = new TextInput(10, 65, 10, 22);
-
-
     lightPane->add(zInput);
+
+    lightPane->add(new Label(10, 10, "Ambient :", 65, 22));
+    auto sRA = new Slider(0, 0, 100, 20, 0, 255, 0);
+    sRA->setOnChange([&](int newValue) { return; });
+    auto sGA = new Slider(0, 0, 100, 20, 0, 255, 0);
+    sGA->setOnChange([&](int newValue) { return; });
+    auto sBA = new Slider(0, 0, 100, 20, 0, 255, 0);
+    sBA->setOnChange([&](int newValue) { return; });
+    lightPane->add(sRA);
+    lightPane->add(sGA);
+    lightPane->add(sBA);
+
+    lightPane->add(new Label(10, 10, "Diffuse :", 65, 22));
+    auto sRD = new Slider(0, 0, 100, 20, 0, 255, 255);
+    sRD->setOnChange([&](int newValue) { return; });
+    auto sGD = new Slider(0, 0, 100, 20, 0, 255, 255);
+    sGD->setOnChange([&](int newValue) { return; });
+    auto sBD = new Slider(0, 0, 100, 20, 0, 255, 255);
+    sBD->setOnChange([&](int newValue) { return; });
+    lightPane->add(sRD);
+    lightPane->add(sGD);
+    lightPane->add(sBD);
+
+    lightPane->add(new Label(10, 10, "Specular :", 65, 22));
+    auto sRS = new Slider(0, 0, 100, 20, 0, 255, 255);
+    sRS->setOnChange([&](int newValue) { return; });
+    auto sGS = new Slider(0, 0, 100, 20, 0, 255, 255);
+    sGS->setOnChange([&](int newValue) { return; });
+    auto sBS = new Slider(0, 0, 100, 20, 0, 255, 255);
+    sBS->setOnChange([&](int newValue) { return; });
+    lightPane->add(sRS);
+    lightPane->add(sGS);
+    lightPane->add(sBS);
 
     auto lightButton = new Button(10, 74, 85, 22, "Placer");
     lightButton->bind([&]() {
         try {
+            auto redAmb = sRA->getCurrent() / 255.0f;
+            auto greenAmb = sGA->getCurrent() / 255.0f;
+            auto blueAmb = sBA->getCurrent() / 255.0f;
+            auto redDiff = sRD->getCurrent() / 255.0f;
+            auto greenDiff = sGD->getCurrent() / 255.0f;
+            auto blueDiff = sBD->getCurrent() / 255.0f;
+            auto redSpec = sRS->getCurrent() / 255.0f;
+            auto greenSpec = sGS->getCurrent() / 255.0f;
+            auto blueSpec = sBS->getCurrent() / 255.0f;
             if (nbLights < 8) {
+
                 auto light = new Light(Vector3f(.0, .5, .5), stof(xInput->getText()), stof(yInput->getText()),
-                                       stof(zInput->getText()), nbLights);
+                                       stof(zInput->getText()), redAmb, greenAmb, blueAmb, redDiff, greenDiff, blueDiff,
+                                       redSpec, greenSpec, blueSpec, nbLights);
                 window->add(light);
                 nbLights++;
             } else {

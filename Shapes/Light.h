@@ -9,7 +9,8 @@
 
 class Light : public Drawable {
 public:
-    explicit Light(const Vector3f &color, float x, float y, float z, int lightNb);
+    explicit Light(const Vector3f &color, float x, float y, float z, float rAmb, float gAmb, float bAmb, float rDiff,
+                   float gDiff, float bDiff, float rSpec, float gSpec, float bSpec, int lightNb);
 
     void setPosition(float x, float y, float z);
 

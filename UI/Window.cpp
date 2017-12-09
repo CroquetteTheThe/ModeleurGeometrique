@@ -64,19 +64,19 @@ void Window::render() {
 	glRotatef(Window::angleY, 1.0, 0.0, 0.0);
 	glRotatef(Window::angleX, 0.0, 1.0, 0.0);
 
-    GLfloat mat_ambient[] = {1.0, 1.0, 1.0, 1.0};
+    /*GLfloat mat_ambient[] = {1.0, 1.0, 1.0, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
-    GLfloat mat_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat mat_diffuse[] = {1.0, 1.0, 1.0, 1.0};*/
     glPushMatrix();
 
 	glPolygonMode(GL_FRONT_AND_BACK, Window::faceMode);
 	for (auto d: Window::drawables) {
 
 		glPushMatrix();
-        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 50.);
+        /*glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 50.);
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
         glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-        glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);*/
 		d->draw();
 		glPopMatrix();
 	}

@@ -83,10 +83,24 @@ void Light::setDiffuse(float r, float g, float b, float a) {
     this->diffuse[3] = a;
 }
 
-Light::Light(const Vector3f &color, float x, float y, float z, int lightNb) : Drawable(color) {
+Light::Light(const Vector3f &color, float x, float y, float z, float rAmb, float gAmb, float bAmb, float rDiff,
+             float gDiff, float bDiff, float rSpec, float gSpec, float bSpec, int lightNb) : Drawable(color) {
     this->position[0] = x;
     this->position[1] = y;
     this->position[2] = z;
+
+    this->ambient[0] = rAmb;
+    this->ambient[1] = gAmb;
+    this->ambient[2] = bAmb;
+
+    this->diffuse[0] = rDiff;
+    this->diffuse[1] = gDiff;
+    this->diffuse[2] = bDiff;
+
+    this->specular[0] = rSpec;
+    this->specular[1] = gSpec;
+    this->specular[2] = bSpec;
+
     this->lightNb = lightNb;
     auto reader = OFFReader();
     this->model = reader.fromFile("../resources/seashell.off");
