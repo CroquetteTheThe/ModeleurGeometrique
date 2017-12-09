@@ -31,6 +31,10 @@ void Shape::addPoint(Vector3f point) {
 	points.emplace_back(point);
 }
 
+DrawableType Shape::getType() {
+	return SHAPE;
+}
+
 std::set<int> Shape::neigborVertices(int verticeIndex) {
 	std::set<int> res;
 	for (auto face : faces) {

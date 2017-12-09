@@ -74,4 +74,8 @@ void TextInput::setOnEnter(const std::function<void()> &onEnter) {
 	TextInput::onEnter = onEnter;
 }
 
+void TextInput::setText(std::string text) {
+	this->text = text;
+}
+
 
