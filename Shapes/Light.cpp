@@ -19,6 +19,7 @@ void Light::draw() {
     //glPopMatrix();
 
     // glPushMatrix();
+
     switch (this->lightNb) {
         case 0:
             this->enableLight0();

@@ -165,9 +165,9 @@ int main(int argc, char **argv) {
                 statusBar->setText("Vous avez atteint le nombre maximum de lumières (8)");
             }
 
-            if (!enableLights) {
+            /*if (!enableLights) {
                 glEnable(GL_LIGHTING);
-            }
+            }*/
 
 
         } catch (const std::exception &e) {
