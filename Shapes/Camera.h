@@ -6,15 +6,8 @@
 #include <string>
 
 class Camera : public Drawable {
-private:
-    Vector3f position = {2, 2, 2};
-    Vector3f direction = {0, 0, 0};
-    std::string resource = "../resources/cam.off";
-    float fov = 45.0;
-    Shape *shape;
-
 public:
-    explicit Camera(const Vector3f &color);
+    explicit Camera(const Vector3f &pos, const Vector3f &color);
 
     void draw() override;
 
@@ -27,6 +20,16 @@ public:
     Vector3f getDirection();
 
     void setFov(float fov);
+
+    DrawableType getType() override;
+
+
+private:
+    Vector3f direction = {0, 0, 0};
+    std::string resource = "../resources/cam.off";
+    float fov = 45.0;
+    Shape *shape;
+
 };
 
 #endif //MODELISATEURGEOMETRIQUE_CAMERA_H

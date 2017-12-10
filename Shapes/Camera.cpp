@@ -18,7 +18,10 @@
     this->fov = fov;
 }*/
 
-Camera::Camera(const Vector3f &color) : Drawable(color) {
+Camera::Camera(const Vector3f &pos, const Vector3f &color) : Drawable(color) {
+    x = pos.x;
+    y = pos.y;
+    z = pos.z;
     auto reader = OFFReader();
     try {
         this->shape = reader.fromFile("../resources/cam.off");
@@ -28,11 +31,13 @@ Camera::Camera(const Vector3f &color) : Drawable(color) {
 }
 
 void Camera::setPosition(Vector3f position) {
-    this->position = position;
+    this->x = position.x;
+    this->y = position.y;
+    this->z = position.z;
 }
 
 Vector3f Camera::getPosition() {
-    return this->position;
+    return {x, y, z};
 }
 
 void Camera::setDirection(Vector3f direction) {
@@ -50,7 +55,6 @@ void Camera::setFov(float fov) {
 
 void Camera::draw() {
     glPushMatrix();
-    glTranslatef(this->getPosition().x, this->getPosition().y, this->getPosition().z);
     Vector3f lookAtDiff = {this->getPosition().x - this->getDirection().x,
                            this->getPosition().y - this->getDirection().y,
                            this->getPosition().z - this->getDirection().z};
@@ -85,4 +89,8 @@ void Camera::draw() {
     glVertex3f(this->getPosition().x, this->getPosition().y, this->getPosition().z);
     glVertex3f(this->getDirection().x, this->getDirection().y, this->getDirection().z);
     glEnd();
+}
+
+DrawableType Camera::getType() {
+    return CAMERA;
 }

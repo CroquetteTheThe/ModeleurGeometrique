@@ -3,10 +3,6 @@
 #include "Shapes/Shape.h"
 #include "Shapes/Camera.h"
 #include "Readers/OFFReader.h"
-#include "UI/Label.h"
-#include "UI/TextInput.h"
-#include "UI/Button.h"
-#include "UI/Pane.h"
 #include "UI/Slider.h"
 #include <fstream>
 
@@ -16,7 +12,6 @@ const int windowHeight = 720;
 int main(int argc, char **argv) {
 	auto window = new Window(&argc, argv, "Projet image - Groupe 5", windowWidth, windowHeight);
 	auto reader = OFFReader();
-	auto camera = new Camera({0.5, 0.5, 0.5});
 
     auto itemPane = new ItemPane(10.f, 500.f, "Items");
     window->addWidget(itemPane);
@@ -99,10 +94,10 @@ int main(int argc, char **argv) {
 	});
 	pane->add(button);
 
+	auto camera = new Camera(Vector3f(1.f, 1.f, 1.f), {0.5,0.5,0.5});
+	window->add(camera);
 
-<<<<<<< HEAD
 	auto cameraPane = new Pane(10, 420, "Camera");
-	float posCamX, posCamY, posCamZ;
 	window->addWidget(cameraPane);
 	window->addListener(cameraPane);
 
@@ -119,20 +114,6 @@ int main(int argc, char **argv) {
 	cameraPane->add(new Label(10, 10, "Z", 65, 22));
 	cameraPane->add(cameraZ);
 
-    auto buttonCamPosition = new Button(10, 74, 85, 22, "Deplacer");
-    buttonCamPosition->bind([&]() {
-
-		auto position = camera->getPosition();
-		position.x = stof(cameraX->getText());
-		position.y = stof(cameraY->getText());
-		position.z = stof(cameraZ->getText());
-		camera->setPosition(position);
-		window->add(camera);
-		camera->draw();
-	});
-    cameraPane->add(buttonCamPosition);
-
-
     auto buttonCamDirection = new Button(10, 74, 85, 22, "Direction");
     buttonCamDirection->bind([&]() {
 
@@ -141,12 +122,10 @@ int main(int argc, char **argv) {
         direction.y = stof(cameraY->getText());
         direction.z = stof(cameraZ->getText());
         camera->setDirection(direction);
-        window->add(camera);
+        //window->add(camera);
         camera->draw();
     });
     cameraPane->add(buttonCamDirection);
-=======
->>>>>>> 60dfda7a12e21391494a9d36c6c5476f11478d76
 
 	window->show();
 	return EXIT_SUCCESS;
