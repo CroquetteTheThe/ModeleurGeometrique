@@ -6,6 +6,7 @@
 #include "UI/Slider.h"
 #include "Shapes/Light.h"
 #include "TestLight.h"
+#include "TestCamera.h"
 #include <fstream>
 
 const int windowWidth = 1366;
@@ -16,6 +17,10 @@ int main(int argc, char **argv) {
 	/* Test Lights */
 	TestLight testL = TestLight();
 	testL.runTestLight();
+
+	/* Test Camera */
+	TestCamera *testCam = new TestCamera();
+	testCam->execute();
 
 	auto window = new Window(&argc, argv, "Projet image - Groupe 5", windowWidth, windowHeight);
 	auto reader = OFFReader();
