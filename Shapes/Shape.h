@@ -18,13 +18,13 @@ public:
 
 	void addFace(std::vector<int> face);
 
+	std::set<int> neigborVertices(int verticeIndex);
+
 	DrawableType getType() override;
 
 private:
 	std::vector<Vector3f> points;
 	std::vector<std::vector<int>> faces;
-
-	std::set<int> neigborVertices(int verticeIndex);
 };
 
 

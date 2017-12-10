@@ -2,9 +2,9 @@
 #include <GLUT/glut.h>
 #else
 #include <GL/glut.h>
-#include <cmath>
-#endif
 
+#endif
+#include <cmath>
 #include <algorithm>
 #include "Shape.h"
 
@@ -44,11 +44,11 @@ void Shape::draw() {
 Shape::Shape(const Vector3f &color) : Drawable(color) {}
 
 void Shape::addFace(std::vector<int> face) {
-    faces.emplace_back(face);
+	faces.emplace_back(face);
 }
 
 void Shape::addPoint(Vector3f point) {
-    points.emplace_back(point);
+	points.emplace_back(point);
 }
 
 DrawableType Shape::getType() {
