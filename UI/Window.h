@@ -39,11 +39,15 @@ private:
 	static float scaleFactor;
 	static GLenum faceMode;
 
-	static void render();
+	static void mainRender();
+
+	static void widgetRender();
 
 	static void keyboardHandler(unsigned char key, int x, int y);
 
-	static void reshape(int x, int y);
+	static void mainReshape(int x, int y);
+
+	static void widgetReshape(int x, int y);
 
 	static void mouseHandler(int button, int state, int x, int y);
 

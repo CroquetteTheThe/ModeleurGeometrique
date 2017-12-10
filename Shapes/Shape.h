@@ -7,6 +7,7 @@
 #include "Drawable.h"
 #include "DrawableType.h"
 
+
 class Shape : public Drawable {
 public:
 	explicit Shape(const Vector3f &color);

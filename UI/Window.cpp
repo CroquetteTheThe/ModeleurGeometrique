@@ -20,6 +20,10 @@ int Window::angleX = 0;
 int Window::angleY = 0;
 int Window::width = 0;
 int Window::height = 0;
+const GLfloat mat_ambient[] = {0.7f, 0.7f, 0.7f, 1.0f};
+const GLfloat mat_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
+const GLfloat mat_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+const GLfloat high_shininess[] = {100.0f};
 float Window::scaleFactor = 0.40;
 std::vector<Drawable *> Window::drawables;
 std::vector<Widget *> Window::widgets;
@@ -27,28 +31,47 @@ std::vector<EventListener *> Window::listeners;
 GLenum Window::faceMode = GL_FILL;
 
 Window::Window(int *pargc, char **argv, std::string title, int width, int height) {
-	Window::width = width;
-	Window::height = height;
-	glutInit(pargc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowPosition(200, 200);
-	glutInitWindowSize(width, height);
-	glutCreateWindow(title.c_str());
+    Window::width = width * 2 / 3;
+    Window::height = height;
+    glutInit(pargc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitWindowPosition(100, 200);
+    glutInitWindowSize(width * 2 / 3, height);
+    glutCreateWindow(title.c_str());
 
-	glClearColor(Color::grey.x, Color::grey.y, Color::grey.z, 0);
-	glPointSize(2.0);
-	glEnable(GL_DEPTH_TEST);
+    glClearColor(Color::grey.x, Color::grey.y, Color::grey.z, 0);
+    glPointSize(2.0);
+    glEnable(GL_DEPTH_TEST);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(0, 4, 0, 0, 0, 0, 0, 1, 0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0, 4, 0, 0, 0, 0, 0, 1, 0);
 
-	glutDisplayFunc(render);
-	glutKeyboardFunc(keyboardHandler);
-	glutReshapeFunc(reshape);
-	glutMouseFunc(mouseHandler);
-	glutPassiveMotionFunc(passiveMouseMotionHandler);
-	glutMotionFunc(mouseMotionHandler);
+    glutDisplayFunc(mainRender);
+    glutKeyboardFunc(keyboardHandler);
+    glutReshapeFunc(mainReshape);
+    glutMouseFunc(mouseHandler);
+    glutPassiveMotionFunc(passiveMouseMotionHandler);
+    glutMotionFunc(mouseMotionHandler);
+
+
+    glutInitWindowPosition(200 + Window::width, 200);
+    glutCreateWindow(title.c_str());
+
+    glClearColor(Color::grey.x, Color::grey.y, Color::grey.z, 0);
+    glPointSize(2.0);
+    glEnable(GL_DEPTH_TEST);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0, 4, 0, 0, 0, 0, 0, 1, 0);
+
+    glutDisplayFunc(widgetRender);
+    glutKeyboardFunc(keyboardHandler);
+    glutReshapeFunc(widgetReshape);
+    glutMouseFunc(mouseHandler);
+    glutPassiveMotionFunc(passiveMouseMotionHandler);
+    glutMotionFunc(mouseMotionHandler);
 
 }
 
@@ -64,17 +87,25 @@ void Window::add(Drawable *drawable) {
 	}
 }
 
-void Window::render() {
+void Window::mainRender() {
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glShadeModel(GL_SMOOTH);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glEnable(GL_NORMALIZE);
+    //glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glScalef(Window::scaleFactor * Window::height / Window::width, Window::scaleFactor, Window::scaleFactor);
+    glRotatef(Window::angleY, 1.0, 0.0, 0.0);
+    glRotatef(Window::angleX, 0.0, 1.0, 0.0);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glScalef(Window::scaleFactor * Window::height / Window::width, Window::scaleFactor, Window::scaleFactor);
-	glRotatef(Window::angleY, 1.0, 0.0, 0.0);
-	glRotatef(Window::angleX, 0.0, 1.0, 0.0);
-
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, high_shininess);
 
 	glPolygonMode(GL_FRONT_AND_BACK, Window::faceMode);
 	for (auto d: Window::drawables) {
@@ -84,37 +115,57 @@ void Window::render() {
 		glPopMatrix();
 	}
 
-	//x axis
-	glBegin(GL_LINES);
-	glColor3f(1.0, 0.0, 0.0);
-	glVertex3f(0, 0, 0.0);
-	glVertex3f(1, 0, 0.0);
-	glEnd();
-	//y axis
-	glBegin(GL_LINES);
-	glColor3f(0.0, 1.0, 0.0);
-	glVertex3f(0, 0, 0.0);
-	glVertex3f(0, 1, 0.0);
-	glEnd();
-	//z axis
-	glBegin(GL_LINES);
-	glColor3f(0.0, 0.0, 1.0);
-	glVertex3f(0, 0, 0.0);
-	glVertex3f(0, 0, 1.0);
-	glEnd();
+    //x axis
+    glBegin(GL_LINES);
+    glColor3f(1.0, 0.0, 0.0);
+    glVertex3f(0, 0, 0.0);
+    glVertex3f(1, 0, 0.0);
+    glEnd();
+    //y axis
+    glBegin(GL_LINES);
+    glColor3f(0.0, 1.0, 0.0);
+    glVertex3f(0, 0, 0.0);
+    glVertex3f(0, 1, 0.0);
+    glEnd();
+    //z axis
+    glBegin(GL_LINES);
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex3f(0, 0, 0.0);
+    glVertex3f(0, 0, 1.0);
+    glEnd();
 
 
-	glPushMatrix();
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glLoadIdentity();
-	glOrtho(0.f, Window::width, Window::height, 0.f, 0.f, 1.f);
-	for (auto widget : Window::widgets) {
-		widget->draw();
-	}
-	glPopMatrix();
+    glFlush();
+    glutSwapBuffers();
+}
 
-	glFlush();
-	glutSwapBuffers();
+
+void Window::widgetRender() {
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glShadeModel(GL_SMOOTH);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glScalef(Window::scaleFactor * Window::height / Window::width, Window::scaleFactor, Window::scaleFactor);
+    glRotatef(Window::angleY, 1.0, 0.0, 0.0);
+    glRotatef(Window::angleX, 0.0, 1.0, 0.0);
+
+
+    glPolygonMode(GL_FRONT_AND_BACK, Window::faceMode);
+
+
+    glPushMatrix();
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glLoadIdentity();
+    glOrtho(0.f, Window::width, Window::height, 0.f, 0.f, 1.f);
+    for (auto widget : Window::widgets) {
+        widget->draw();
+    }
+    glPopMatrix();
+
+    glFlush();
+    glutSwapBuffers();
 }
 
 void Window::keyboardHandler(unsigned char key, int x, int y) {
@@ -147,8 +198,12 @@ void Window::keyboardHandler(unsigned char key, int x, int y) {
 	}
 }
 
-void Window::reshape(int x, int y) {
-	glutReshapeWindow(width, height);
+void Window::mainReshape(int x, int y) {
+    glutReshapeWindow(width, height);
+}
+
+void Window::widgetReshape(int x, int y) {
+    glutReshapeWindow(x, y);
 }
 
 void Window::mouseHandler(int button, int state, int x, int y) {
