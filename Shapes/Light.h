@@ -38,6 +38,7 @@ public:
 
     void enableLight7();
 
+    DrawableType getType() override;
 
 private:
     Shape *model;

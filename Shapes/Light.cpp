@@ -54,6 +54,10 @@ void Light::draw() {
 
 }
 
+DrawableType Light::getType() {
+    return LIGHT;
+}
+
 void Light::setPosition(float x, float y, float z) {
     this->position[0] = x;
     this->position[1] = y;

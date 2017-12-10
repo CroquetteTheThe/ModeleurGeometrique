@@ -1,9 +1,7 @@
 #include "Window.h"
-#include "../Utils/Color.h"
 #include "../Events/MouseClickEvent.h"
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
-#include "../UI/ItemPane.h"
 #include "../Events/DrawableCreationEvent.h"
 
 #ifdef __APPLE__
@@ -94,7 +92,7 @@ void Window::mainRender() {
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glEnable(GL_NORMALIZE);
-    //glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHTING);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
