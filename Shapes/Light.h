@@ -20,6 +20,14 @@ public:
 
     void setDiffuse(float r, float g, float b, float a = 1.0);
 
+    GLfloat *getPosition();
+
+    GLfloat *getAmbient();
+
+    GLfloat *getDiffuse();
+
+    GLfloat *getSpecular();
+
     void draw() override;
 
     void enableLight0();

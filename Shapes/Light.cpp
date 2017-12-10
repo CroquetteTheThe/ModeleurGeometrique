@@ -58,6 +58,22 @@ DrawableType Light::getType() {
     return LIGHT;
 }
 
+GLfloat *Light::getPosition() {
+    return this->position;
+}
+
+GLfloat *Light::getAmbient() {
+    return this->ambient;
+}
+
+GLfloat *Light::getDiffuse() {
+    return this->diffuse;
+}
+
+GLfloat *Light::getSpecular() {
+    return this->specular;
+}
+
 void Light::setPosition(float x, float y, float z) {
     this->position[0] = x;
     this->position[1] = y;

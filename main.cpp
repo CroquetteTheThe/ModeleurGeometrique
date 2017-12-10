@@ -3,22 +3,23 @@
 #include "Shapes/Shape.h"
 #include "Shapes/Camera.h"
 #include "Readers/OFFReader.h"
-#include "UI/Label.h"
-#include "UI/TextInput.h"
-#include "UI/Button.h"
-#include "UI/Pane.h"
 #include "UI/Slider.h"
 #include "Shapes/Light.h"
+#include "TestLight.h"
 #include <fstream>
 
 const int windowWidth = 1366;
 const int windowHeight = 720;
 
 int main(int argc, char **argv) {
+
+	/* Test Lights */
+	TestLight testL = TestLight();
+	testL.runTestLight();
+
 	auto window = new Window(&argc, argv, "Projet image - Groupe 5", windowWidth, windowHeight);
 	auto reader = OFFReader();
 
-    bool enableLights = false;
     int nbLights = 0;
     auto itemPane = new ItemPane(10.f, 500.f, "Items");
     window->addWidget(itemPane);
