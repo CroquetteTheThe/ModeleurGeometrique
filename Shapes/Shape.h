@@ -18,7 +18,7 @@ public:
 
 	void addFace(std::vector<int> face);
 
-	std::set<int> neigborVertices(int verticeIndex);
+	std::set<int> neighborVertices(int verticeIndex);
 
 	DrawableType getType() override;
 

@@ -26,11 +26,11 @@ int main(int argc, char **argv) {
 	auto reader = OFFReader();
 
     int nbLights = 0;
-    auto itemPane = new ItemPane(10.f, 500.f, "Items");
+	auto itemPane = new ItemPane(520, 10, "Items");
     window->addWidget(itemPane);
     window->addListener(itemPane);
 
-	auto colorPane = new Pane(10, 200, "Color");
+	auto colorPane = new Pane(10, 160, "Color");
 	window->addWidget(colorPane);
 	window->addListener(colorPane);
 
@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
 	pane->add(button);
 
     /* Light Pane*/
-    auto lightPane = new Pane(10, 430, "Light");
+	auto lightPane = new Pane(200, 10, "Light");
     window->addWidget(lightPane);
     window->addListener(lightPane);
     lightPane->add(new Label(10, 10, "Position X", 65, 22));
@@ -190,7 +190,7 @@ int main(int argc, char **argv) {
 	auto camera = new Camera(Vector3f(1.f, 1.f, 1.f), {0.5,0.5,0.5});
 	window->add(camera);
 
-	auto cameraPane = new Pane(10, 420, "Camera");
+	auto cameraPane = new Pane(10, 400, "Camera");
 	window->addWidget(cameraPane);
 	window->addListener(cameraPane);
 

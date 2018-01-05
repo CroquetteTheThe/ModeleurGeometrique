@@ -83,12 +83,6 @@ void Camera::draw() {
 
 
     glPopMatrix();
-    glBegin(GL_LINES);
-    glLoadIdentity();
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex3f(this->getPosition().x, this->getPosition().y, this->getPosition().z);
-    glVertex3f(this->getDirection().x, this->getDirection().y, this->getDirection().z);
-    glEnd();
 }
 
 DrawableType Camera::getType() {

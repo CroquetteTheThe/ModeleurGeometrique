@@ -10,6 +10,9 @@
 
 void Shape::draw() {
     glColor3d(color.x, color.y, color.z);
+
+    auto neighbors = neighborVertices(30);
+
     if (faces[0].size() == 3) {
         glBegin(GL_TRIANGLES);
     }
@@ -35,7 +38,10 @@ void Shape::draw() {
 
         glNormal3f(x, y, z);
         for (int idx : face) {
+            auto contains = neighbors.find(idx) != neighbors.end();
+            if (contains) glColor3d(1 - color.x, 1 - color.y, 1 - color.z);
             glVertex3d(points[idx].x, points[idx].y, points[idx].z);
+            if (contains) glColor3d(color.x, color.y, color.z);
         }
     }
     glEnd();
@@ -55,7 +61,7 @@ DrawableType Shape::getType() {
 	return SHAPE;
 }
 
-std::set<int> Shape::neigborVertices(int verticeIndex) {
+std::set<int> Shape::neighborVertices(int verticeIndex) {
 	std::set<int> res;
 	for (auto face : faces) {
 		auto it = std::find(face.begin(), face.end(), verticeIndex);

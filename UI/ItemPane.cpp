@@ -9,7 +9,6 @@
 #include "../Events/MouseClickEvent.h"
 #include "../Events/DrawableCreationEvent.h"
 #include "../Events/DrawableDestroyEvent.h"
-#include "../Shapes/DrawableType.h"
 
 
 //src: https://stackoverflow.com/a/19751887
@@ -80,13 +79,13 @@ void ItemPane::add(Drawable *drawable) {
     }
     std::string title;
     if (type == SHAPE) {
-        title = "Forme " + std::to_string(nbType);
+        title = "Shape " + std::to_string(nbType);
     }
     if (type == CAMERA) {
-        title = "Caméra " + std::to_string(nbType);
+        title = "Camera " + std::to_string(nbType);
     }
     if (type == LIGHT) {
-        title = "Lumière " + std::to_string(nbType);
+        title = "Light " + std::to_string(nbType);
     }
     auto newItem = new Item(drawable, x+22*(widgets.size() -5), y, title);
     add(newItem);
