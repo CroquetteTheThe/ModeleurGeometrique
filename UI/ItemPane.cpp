@@ -188,3 +188,7 @@ void ItemPane::add(Widget *widget) {
                                [](Widget *a, Widget *b) { return a->width < b->width; }))->width + 10;
     widgets[0]->width = width;
 }
+
+Item *ItemPane::getItemSelected() const {
+    return itemSelected;
+}

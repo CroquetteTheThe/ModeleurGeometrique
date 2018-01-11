@@ -17,6 +17,8 @@ public:
 
     void setItemSelected(Item* selected);
 
+    Item *getItemSelected() const;
+
 private:
     Item* itemSelected = nullptr;
 

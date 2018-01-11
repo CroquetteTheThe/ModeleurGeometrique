@@ -36,30 +36,30 @@ int main(int argc, char **argv) {
 
 	auto sliderRed = new Slider(0, 0, 100, 20, 0, 255, 255);
 	sliderRed->setOnChange([&](int newValue) {
-		if (window->getDrawables().empty()) return;
-		auto color = window->getDrawables()[0]->getColor();
+		auto d = itemPane->getItemSelected()->getDrawable();
+		auto color = d->getColor();
 		color.x = newValue / 255.0f;
-		window->getDrawables()[0]->setColor(color);
+		d->setColor(color);
 	});
 	colorPane->add(new Label(10, 10, "Red", 65, 22));
 	colorPane->add(sliderRed);
 
 	auto sliderGreen = new Slider(0, 0, 100, 20, 0, 255, 255);
 	sliderGreen->setOnChange([&](int newValue) {
-		if (window->getDrawables().empty()) return;
-		auto color = window->getDrawables()[0]->getColor();
+		auto d = itemPane->getItemSelected()->getDrawable();
+		auto color = d->getColor();
 		color.y = newValue / 255.0f;
-		window->getDrawables()[0]->setColor(color);
+		d->setColor(color);
 	});
 	colorPane->add(new Label(10, 10, "Green", 65, 22));
 	colorPane->add(sliderGreen);
 
 	auto sliderBlue = new Slider(0, 0, 100, 20, 0, 255, 255);
 	sliderBlue->setOnChange([&](int newValue) {
-		if (window->getDrawables().empty()) return;
-		auto color = window->getDrawables()[0]->getColor();
+		auto d = itemPane->getItemSelected()->getDrawable();
+		auto color = d->getColor();
 		color.z = newValue / 255.0f;
-		window->getDrawables()[0]->setColor(color);
+		d->setColor(color);
 	});
 	colorPane->add(new Label(10, 10, "Blue", 65, 22));
 	colorPane->add(sliderBlue);
