@@ -11,7 +11,7 @@
 void Shape::draw() {
     glColor3d(color.x, color.y, color.z);
 
-    auto neighbors = neighborVertices(30);
+    auto neighbors = neighborVertices(verticeIndex);
 
     if (faces[0].size() == 3) {
         glBegin(GL_TRIANGLES);
@@ -47,7 +47,7 @@ void Shape::draw() {
     glEnd();
 }
 
-Shape::Shape(const Vector3f &color) : Drawable(color) {}
+Shape::Shape(const Vector3f &color) : Drawable(color), verticeIndex(-1) {}
 
 void Shape::addFace(std::vector<int> face) {
 	faces.emplace_back(face);
@@ -70,4 +70,8 @@ std::set<int> Shape::neighborVertices(int verticeIndex) {
 		res.emplace(it == face.begin() ? face[face.size() - 1] : *(it + 1));
 	}
 	return res;
+}
+
+void Shape::setVerticeIndex(int verticeIndex) {
+    Shape::verticeIndex = verticeIndex;
 }

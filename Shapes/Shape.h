@@ -18,11 +18,14 @@ public:
 
 	void addFace(std::vector<int> face);
 
-	std::set<int> neighborVertices(int verticeIndex);
+    void setVerticeIndex(int verticeIndex);
 
 	DrawableType getType() override;
 
 private:
+    int verticeIndex;
+
+    std::set<int> neighborVertices(int verticeIndex);
 	std::vector<Vector3f> points;
 	std::vector<std::vector<int>> faces;
 };

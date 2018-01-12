@@ -64,6 +64,31 @@ int main(int argc, char **argv) {
 	colorPane->add(new Label(10, 10, "Blue", 65, 22));
 	colorPane->add(sliderBlue);
 
+
+	auto paneNeighbors = new Pane(520, 520, "Neighbors");
+	window->addWidget(paneNeighbors);
+	window->addListener(paneNeighbors);
+
+	auto tiVertice = new TextInput(10, 42, 10, 22);
+	tiVertice->setOnEnter([&]() {
+		auto shape = dynamic_cast<Shape *>(itemPane->getItemSelected()->getDrawable());
+		if (shape != nullptr) {
+			shape->setVerticeIndex(stoi(tiVertice->getText()));
+		}
+	});
+	paneNeighbors->add(tiVertice);
+
+
+	auto seeButton = new Button(10, 74, 85, 22, "See");
+	seeButton->bind([&]() {
+		auto shape = dynamic_cast<Shape *>(itemPane->getItemSelected()->getDrawable());
+		if (shape != nullptr) {
+			shape->setVerticeIndex(stoi(tiVertice->getText()));
+		}
+	});
+	paneNeighbors->add(seeButton);
+
+
 	auto pane = new Pane(10, 10, "Load");
 	window->addWidget(pane);
 	window->addListener(pane);
